@@ -1,0 +1,120 @@
+/* 
+	Input Transaction Specific
+*/
+/*
+.main-content {
+    background-color:#c1e1ec;
+    border-radius: 1rem;
+    margin: auto;
+    padding: .75rem;
+}
+.transaction-container {
+    background-color:#c1e1ec;
+    padding: .75rem;
+}
+.trans-title {
+	margin: 0;
+	text-align: center;
+}
+
+*/
+/*
+.trans-type-row,
+.trans-row-amount {
+}
+*/
+.transaction-row {
+	margin-top: 1em;
+	border-bottom: .125em solid black;
+}
+.transaction-row-content {
+	padding-left: .5em;
+	padding-right: .5em; 
+}
+.trans-expense,
+.trans-income {
+	font-size: 2em;
+	width: 100%;
+	height: 100%;
+	padding-top: .4em;
+	padding-bottom:.4em;
+}
+.trans-input,
+.trans-input-amount {
+	width:100%;
+	border: 0;
+}
+.trans-input {
+	font-size: 1em;
+	height: 1.5em;
+}
+.trans-row-amount-title {
+	border:0;
+}
+.trans-input-amount {
+	font-size: 3em;
+	text-align: right;
+}
+
+.finalizing-row {
+	height:4em;
+}
+
+.finalizing-data button {
+	padding: 0;
+	margin: 0;
+	font-size: 3em;
+}
+.transaction-footer {
+	position: fixed;
+	bottom: 0;
+
+}
+.finalizing-data button {
+	width: 100%;
+}
+.finalizing-data button.trans-cancel {
+	border-right: 1px solid #FFF;
+	border-top-left-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+}
+.finalizing-data button.trans-submit {
+	border-left: 1px solid #FFF;
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+}
+.finalizing-row {
+	margin-top: .75rem;
+}
+
+/* 
+	Media Queries
+*/
+/* Small */
+@media (min-width:600px) {
+	/* 
+		Content 
+	*/
+	.transaction-container {
+		border-radius: 1rem;
+		margin: 1rem;
+	}
+}
+/* Medium */
+@media (min-width:769px) {
+	/* 
+		Content 
+	*/
+}
+/* Large */
+@media (min-width: 1025px) {
+	/* 
+		Content 
+	*/
+}
+/* Extra Large */
+@media (min-width: 1301px) {
+	/* 
+		Content 
+	*/
+}

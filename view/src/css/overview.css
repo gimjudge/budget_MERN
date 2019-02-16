@@ -1,0 +1,54 @@
+/* 
+	Overview Specific
+*/
+.table-header {
+    border-bottom: 1px solid #99cfe0;
+    text-align: center;
+
+}
+.category-container {
+    background-color:#fff;
+    margin-top: 1rem;
+    padding: .75rem;
+}
+
+.number-data {
+    text-align: right;
+}
+.table-footer {
+	border-top: 1px solid #d4ebf2;
+    padding-top: .15rem;
+}
+
+/* 
+	Media Queries
+*/
+/* Small */
+@media (min-width:600px) {
+	/* 
+		Content 
+	*/
+	.category-container {
+		border-radius: 1rem;
+		margin: 1rem;
+		padding: .75rem;
+	}
+}
+/* Medium */
+@media (min-width:769px) {
+	/* 
+		Content 
+	*/
+}
+/* Large */
+@media (min-width: 1025px) {
+	/* 
+		Content 
+	*/
+}
+/* Extra Large */
+@media (min-width: 1301px) {
+	/* 
+		Content 
+	*/
+}

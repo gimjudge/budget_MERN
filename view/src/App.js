@@ -5,9 +5,6 @@ import {
 	Switch
 } from 'react-router-dom';
 
-import './css/normalize.css';
-import './css/styles.css';
-
 // App Components
 import Header from './components/Header';
 
@@ -17,7 +14,14 @@ import AddTransation from './containers/AddTransaction';
 import Overview from './containers/Overview';
 import DetailedView from './containers/DetailedView';
 import Login from './containers/Login';
-//import NotFound from './NotFound';
+import Register from './containers/Login';
+import NotFound from './NotFound';
+
+// Fav Icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars, faCheck, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars, faCheck, faCamera, faTimes);
 
 /*
             <Route exact path="/" component={Home} />
@@ -29,15 +33,15 @@ class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Header></Header>
-          <div className="main-content">
-            <Switch>
-              <Route exact path="/"  component={Home} />
-              <Route path="/add_transaction"  component={AddTransation} />
-              <Route path="/overview" component={Overview} />
-              <Route path="/detailed" component={DetailedView} />
-              <Route path="/login" component={Login} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/"  component={Home} />
+            <Route path="/add_transaction"  component={AddTransation} />
+            <Route path="/overview" component={Overview} />
+            <Route path="/detailed" component={DetailedView} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </BrowserRouter>
     );

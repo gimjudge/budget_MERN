@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
+import '../css/addTransaction.css';
 import AddTransactionForm from '../components/AddTransactionForm';
 
 class AddTransaction extends Component {
     render () {
         return (
-            <>
-                <div>Add Transaction</div>
+            <div className="main-content">
                 <AddTransactionForm />
-            </>
+            </div>
         );
     }
 }

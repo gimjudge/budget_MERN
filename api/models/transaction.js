@@ -1,14 +1,19 @@
-import mongoose from 'mongoose';
+'use strict';
 
-const Schema = mongoose.Schema;
+var mongoose = require("mongoose");
 
-let LedgerSchema = new Schema({
-    amount: {type: Date, default: Date.now},
-    type: {type: Date, default: Date.now},
-    category: {type: Date, default: Date.now},
-    note: {type: Date, default: Date.now},
-    datet: {type: Date, default: Date.now},
+var Schema = mongoose.Schema;
+
+var TransactionSchema = new Schema({
+    amount: {type: Number },
+    type: {type: Boolean },
+    category: {type: String },
+    note: {type: String },
+    date: {type: Date, default: Date.now},
     date_created: {type: Date, default: Date.now},
     date_deleted:{type: Date, default: null}
 });
 
+var TransactionModel = mongoose.model('Transaction', TransactionSchema);
+
+module.exports.TransactionModel = TransactionModel;

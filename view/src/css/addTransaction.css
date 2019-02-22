@@ -23,6 +23,7 @@
 .trans-row-amount {
 }
 */
+
 .transaction-row {
 	margin-top: 1em;
 	border-bottom: .125em solid black;
@@ -31,14 +32,18 @@
 	padding-left: .5em;
 	padding-right: .5em; 
 }
-.trans-expense,
-.trans-income {
+
+.trans-type-button {
 	font-size: 2em;
 	width: 100%;
 	height: 100%;
 	padding-top: .4em;
 	padding-bottom:.4em;
 }
+.trans-active-button {
+	background-color: aqua;
+}
+
 .trans-input,
 .trans-input-amount {
 	width:100%;
@@ -68,7 +73,6 @@
 .transaction-footer {
 	position: fixed;
 	bottom: 0;
-
 }
 .finalizing-data button {
 	width: 100%;

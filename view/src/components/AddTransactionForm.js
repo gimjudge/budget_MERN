@@ -80,15 +80,18 @@ class AddTransaction extends Component {
             }
             //postJSON[ref] = (this.fieldValidation(this.refs[ref].value)) ? this.refs[ref].value : this.refs[ref].value;
         }
-        console.log("before");
+        //console.log("before");
         console.log(postJSON);
-        console.log("after");
+        //console.log("after");
         axios.post('http://localhost:3001/transaction/detail', postJSON)
           .then(function (response) {
+            //console.log("response");
             console.log(response);
           })
           .catch(function (error) {
-            console.log(error);
+            //console.log("error");
+            //console.log(error);
+            console.log(error.response);
           });
     }
     render () {
@@ -100,6 +103,7 @@ class AddTransaction extends Component {
                         <div className="column-12">
                             <div className="data">
                                 <h1 className="main-title">Add Transaction</h1>
+                                <div id="demo"></div>
                             </div>
                         </div>
                     </div>
@@ -109,13 +113,13 @@ class AddTransaction extends Component {
                         <div className="trans-type-column column-6">
                             <div className="trans-type-data data">
                                 <button className="trans-expense trans-type-button" >Expense</button>
-                                <input className="trans-expense trans-type-radio"type="radio" ref="type" name="type" value="0" required />
+                                <input className="trans-expense trans-type-radio"type="radio" ref="type" name="type" value="Expense" required />
                             </div>
                         </div>
                         <div className="transaction-column column-6">
                             <div className="transaction-data data" >
                                 <button className="trans-income trans-type-button">Income</button>
-                                <input className="trans-income trans-type-radio" type="radio" ref="type" name="type" value="1" required />
+                                <input className="trans-income trans-type-radio" type="radio" ref="type" name="type" value="Income" required />
                             </div>
                         </div>
                     </div>
@@ -219,7 +223,7 @@ class AddTransaction extends Component {
                         </div>
                         <div className="transaction-column column-8">
                             <div className="transaction-data data">
-                                <input className="trans-input" id="tags" type="text" name="transaction[tags]" placeholder="Tags separated by a comma" ref="tags" required />
+                                <input className="trans-input" id="tags" type="text" name="transaction[tags]" placeholder="Tags separated by a comma" ref="tags" />
                             </div>
                         </div>
                     </div>

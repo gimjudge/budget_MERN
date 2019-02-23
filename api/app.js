@@ -21,7 +21,7 @@ app.use(jsonParser());
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/budget', { useNewUrlParser: true });
 
-//Create a Smaller variable
+//Create db connection variable
 let db = mongoose.connection;
 
 db.on("error", (err) => {
@@ -54,11 +54,15 @@ app.use((req, res, next) => {
 //Error Handler
 app.use((err, req, res, next) => {
     res.status(err.status);
-    res.json({
-        error: {
-            message: err.message
-        }
-    });
+    if (err.palatable == true) {
+        res.json(err);
+    } else {
+        res.json({
+            error: {
+                message: err.message
+            }
+        });
+    }
 });
 
 // Express App Listen

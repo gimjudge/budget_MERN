@@ -1,19 +1,19 @@
 'use strict';
 
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var TransactionSchema = new Schema({
-    amount: { type: Number },
-    type: { type: Boolean },
-    category: { type: String },
-    note: { type: String },
+const TransactionSchema = new Schema({
+    amount: { type: Number, required: true },
+    type: { type: Boolean, required: true  },
+    category: { type: String, required: true },
+    note: { type: String, default: null },
     date: { type: Date, default: Date.now },
     date_created: { type: Date, default: Date.now },
     date_deleted: { type: Date, default: null }
 });
 
-var TransactionModel = mongoose.model('Transaction', TransactionSchema);
+const TransactionModel = mongoose.model('Transaction', TransactionSchema);
 
 module.exports.TransactionModel = TransactionModel;

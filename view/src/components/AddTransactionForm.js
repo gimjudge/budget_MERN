@@ -5,18 +5,33 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class AddTransaction extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            amount: '',
-            category: '',
-            date: '',
-            merch: '',
-            notes: '',
-            type: '',
-            tags: ''
+            formVariables: {
+                amount: '',
+                category: '',
+                date: '',
+                merch: '',
+                notes: '',
+                type: '',
+                tags: ''
+            },
+            formValid: {
+                amount: '',
+                category: '',
+                date: '',
+                merch: '',
+                type: ''
+            },
+            formResponse: ''
         };
     }
+
+    /*
+        Handles the Transaction type Radio Button and Button
+    */
     handleRadioAndButton = e => {
         let buttons = document.getElementsByClassName("trans-type-button");
         for (let i=0; i < buttons.length; i++) {
@@ -30,45 +45,79 @@ class AddTransaction extends Component {
             e.target.previousElementSibling.classList.add("trans-active-button");
         }
     }
-
+    
+    /*
+        Handles the cancel Button, Perhaps make this a reset button?
+    */
     handleCancelButton = e => {
         e.preventDefault();
     }
+
+    /*
+        Handle the Camera button
+    */
     handleCameraButton = e => {
         e.preventDefault();
         e.target.nextElementSibling.click();
     }
+
+    /*
+        Handle Submit
+    */
     handleSubmitButton = e => {
         console.log('this');
         //onClick={ this.handleSubmitButton } 
     }
-    
+
+    /*
+        Field Validation
+    */
     fieldValidation (fieldName, value) {
+        const newState = {
+            valid: {},
+            invalid: {}
+        };
+        newState.valid[fieldName] = 'trans-field-valid';
+        newState.invalid[fieldName] = 'trans-field-invalid';
         switch (fieldName) {
             case 'amount':
             let amount = parseFloat(value);
-                if (!isNaN(amount)) { 
+                if (!isNaN(amount)) {
+                    this.setState(newState.valid);
                     return amount; 
                 } else { 
+                    this.setState(newState.invalid);
                     return null;
                 }
             case 'date':
                 if (typeof(value) === "string") {
                     if (value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                        this.setState(newState.valid);
                         return value;
                     }
                 }
+                this.setState(newState.invalid);
                 return null;
             default:
                 if (typeof(value) === "string") {
+                    this.setState(newState.valid);
                     return value;
                 }
+                this.setState(newState.invalid);
                 return null;
         }
     }
+
+    /*
+        Field is Set
+    */
     fieldIsSet (value) {
         return (value !== undefined);
     }
+
+    /*
+        handle Submit
+    */
     handleSubmit = e => {
         e.preventDefault();
         //console.log(this.refs);
@@ -94,6 +143,10 @@ class AddTransaction extends Component {
             console.log(error.response);
           });
     }
+    
+    /*
+        Render Add transaction Form
+    */
     render () {
         return (
         <form className="transaction-form" onSubmit={this.handleSubmit} method="POST" autoComplete="on">
@@ -109,17 +162,33 @@ class AddTransaction extends Component {
                     </div>
                 </div>
                 <div className="trans-type-row row" onClick={ this.handleRadioAndButton }>
-                    <div className="trans-type-row-content row-content">
+                    <div className={"trans-type-row-content row-content " + this.state.type }>
                         <div className="trans-type-column column-6">
                             <div className="trans-type-data data">
                                 <button className="trans-expense trans-type-button" >Expense</button>
-                                <input className="trans-expense trans-type-radio"type="radio" ref="type" name="type" value="Expense" required />
+                                <input 
+                                    className="trans-expense trans-type-radio" 
+                                    type="radio" 
+                                    ref="type" 
+                                    name="type" 
+                                    value="Expense"
+                                    checked={this.state.type === 'Expense'} 
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="transaction-column column-6">
                             <div className="transaction-data data" >
                                 <button className="trans-income trans-type-button">Income</button>
-                                <input className="trans-income trans-type-radio" type="radio" ref="type" name="type" value="Income" required />
+                                <input 
+                                    className="trans-income trans-type-radio" 
+                                    type="radio" 
+                                    ref="type" 
+                                    name="type" 
+                                    value="Income" 
+                                    checked={this.state.type === 'Income'} 
+                                    required 
+                                />
                             </div>
                         </div>
                     </div>
@@ -138,15 +207,16 @@ class AddTransaction extends Component {
                         <div className="transaction-column column-12">
                             <div className="transaction-data data">
                                 <input 
-                                    className="trans-input trans-input-amount" 
+                                    className="trans-input trans-input-amount {this.state[amount]}" 
                                     type="number" 
                                     id="amount" 
                                     name="transaction[amount]" 
+                                    value={this.state.amount}
                                     placeholder="0.00" 
                                     step="0.01" 
-                                    ref="amount" 
                                     required 
                                 />
+                                    ref="amount" 
                             </div>
                         </div>
                     </div>
@@ -158,9 +228,16 @@ class AddTransaction extends Component {
                                 <label htmlFor="transaction-date">Date</label>
                             </div>
                         </div>
-                        <div className="transaction-column column-8">
-                            <div className="transaction-data data">
-                                <input className="trans-input" type="date" id="transaction-date" name="transaction[date]" ref="date" required />
+                        <div className={"transaction-column column-8 " + this.state.date }>
+                            <div className={"transaction-data data " + this.state.date }>
+                                <input 
+                                    className={"trans-input " + this.state.date } 
+                                    type="date" 
+                                    id="transaction-date" 
+                                    name="transaction[date]" 
+                                    value={this.state.date}
+                                    required 
+                                /> ref="date"
                             </div>
                         </div>
                     </div>
@@ -179,6 +256,7 @@ class AddTransaction extends Component {
                                 type="text" 
                                 id="merchant"
                                 name="transaction[merchant]" 
+                                value={this.state.merchant}
                                 placeholder="Merchant" 
                                 ref="merchant"
                                 required
@@ -196,7 +274,14 @@ class AddTransaction extends Component {
                         </div>
                         <div className="transaction-column column-8">
                             <div className="transaction-data data">
-                                <select className="trans-input" id="category" name="trans-category" ref="category" required>
+                                <select 
+                                    className="trans-input" 
+                                    id="category" 
+                                    name="trans-category"
+                                    value={this.state.merchant}
+                                    ref="category" 
+                                    required
+                                >
                                     <option value="coffee">
                                         coffee
                                     </option>
@@ -223,7 +308,14 @@ class AddTransaction extends Component {
                         </div>
                         <div className="transaction-column column-8">
                             <div className="transaction-data data">
-                                <input className="trans-input" id="tags" type="text" name="transaction[tags]" placeholder="Tags separated by a comma" ref="tags" />
+                                <input 
+                                    className="trans-input" 
+                                    id="tags" 
+                                    type="text" 
+                                    name="transaction[tags]" 
+                                    placeholder="Tags separated by a comma" 
+                                    ref="tags"
+                                />
                             </div>
                         </div>
                     </div>
@@ -237,7 +329,13 @@ class AddTransaction extends Component {
                         </div>
                         <div className="transaction-column column-8">
                             <div className="transaction-data data">
-                                <input className="trans-input" type="text" name="transaction[notes]" placeholder="Notes" ref="notes" />
+                                <input 
+                                    className="trans-input" 
+                                    type="text" 
+                                    name="transaction[notes]" 
+                                    placeholder="Notes" 
+                                    ref="notes" 
+                                />
                             </div>
                         </div>
                     </div>

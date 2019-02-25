@@ -53,6 +53,12 @@
 	font-size: 1em;
 	height: 1.5em;
 }
+.trans-field-valid {
+	border: 1px solid #0F0;
+}
+.trans-field-invalid {
+	border: 1px solid #f00;
+}
 .trans-row-amount-title {
 	border:0;
 }

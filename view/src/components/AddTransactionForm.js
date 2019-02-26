@@ -10,24 +10,28 @@ class AddTransaction extends Component {
         super(props);
         this.state = {
             formVariables: {
+                type: "expense",
                 amount: 0.00,
-                category: '',
-                date: Date.now(),
-                merch: '',
-                notes: '',
-                type: 'expense',
-                tags: ''
+                date: "2018-02-26",
+                merchant: '',
+                category: 'gas'
             },
             fieldValid: {
                 amount: false,
                 category: false,
                 date: false,
-                merch: false,
+                merchant: false,
                 type: false
             },
             formResponse: '',
             formValid: false
         };
+    }
+
+    componentDidMount() {
+        for (let name in this.state.fieldValid) {
+            this.fieldVariables(name, this.state.formVariables[name]);
+        }
     }
 
     /*
@@ -75,12 +79,11 @@ class AddTransaction extends Component {
         Expects String, String
     */
     fieldVariables (fieldName, value) {
-        let formVariables = this.state.formVariables;
-        if (fieldName in formVariables) {
+        let formVariables = Object.assign({}, this.state.formVariables);
             switch (fieldName) {
                 case 'amount':
                     let amount = parseFloat(value);
-                    if (!isNaN(amount)) {
+                    if (!isNaN(amount) && amount !== 0) {
                         formVariables[fieldName] = amount;
                         this.fieldValidation (fieldName, true);
                     } else { 
@@ -89,40 +92,47 @@ class AddTransaction extends Component {
                     break;
                 case 'date':
                     if (typeof(value) === "string") {
-                        if (value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                        console.log(value);
+                        if (value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
                             this.fieldValidation (fieldName, true);
+                            console.log("matched");
+                        } else {
+                            this.fieldValidation (fieldName, false);
                         }
                     }
-                    formVariables[fieldName] = null;
                     break;
                 case 'category':
-                case 'merch':
-                    if (typeof(value) === "string" && value.len !== 0) {
+                case 'merchant':
+                    if (typeof(value) === "string" && value !== "") {
                         this.fieldValidation (fieldName, true);
+                    } else {
+                        this.fieldValidation (fieldName, false);
                     }
-                    this.fieldValidation (fieldName, false);
+                    
                     break;
                 case 'type':
-                    //if (value === "expense" || value === "income") {
+                    if (value === "expense" || value === "income") {
                     
-                    if (typeof(value) === "boolean") {
+                    //if (typeof(value) === "boolean") {
                         formVariables[fieldName] = value;
                         this.fieldValidation (fieldName, true);
+                    } else {
+                        this.fieldValidation (fieldName, false);
                     }
-                    this.fieldValidation (fieldName, false);
+                    
                     break;
                 default:
                     if (typeof(value) === "string") {
                         this.fieldValidation (fieldName, true);
+                    } else {
+                        this.fieldValidation (fieldName, false);
                     }
-                    this.fieldValidation (fieldName, false);
                     break;
             }
         
             this.setState({
                 formVariables: formVariables
             }, this.formValidation);
-        }
     }
 
     /*
@@ -130,11 +140,13 @@ class AddTransaction extends Component {
         Expects String, boolean
     */
     fieldValidation (fieldName, boolean) {
-        if (fieldName in this.state.fieldValid) {
-            let newState = { fieldValid:{} };
-            newState.fieldValid[fieldName] = boolean;
-            this.setState(newState);
-        }
+        this.setState((prevState)=>({
+            fieldValid:{
+                ...prevState.fieldValid,
+                [fieldName]: boolean
+            }
+
+        }));
     }
 
     /*
@@ -143,9 +155,12 @@ class AddTransaction extends Component {
     */
     formValidation() {
         let result = true;
-        for (let index in this.state.formValid) {
-            if (this.state.formValid[index] !== true) {
+        for (let index in this.state.fieldValid) {
+            console.log(index);
+            console.log(this.state.fieldValid[index]);
+            if (this.state.fieldValid[index] !== true) {
                 result = false;
+                break;
             }
         }
         this.setState({formValid: result});
@@ -156,7 +171,7 @@ class AddTransaction extends Component {
         Expects String
     */
     errorField (fieldName) {
-        if (this.formValid[fieldName]) {
+        if (this.state.formValid[fieldName]) {
             return 'trans-field-valid';
         } else {
             return 'trans-field-invalid';
@@ -176,8 +191,14 @@ class AddTransaction extends Component {
     handleUserInput (e) {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState(
-            {formVariables: {[name]: value}}, 
+        /*
+        */
+        this.setState(prevState => ({
+            formVariables: {
+                ...prevState.formVariables,
+                [name]: value
+            }
+        }), 
             () => { this.fieldVariables(name, value) }
         );
        
@@ -258,8 +279,8 @@ class AddTransaction extends Component {
                                     type="radio" 
                                     ref="type" 
                                     name="type" 
-                                    value="Expense"
-                                    checked={this.state.formVariables.type === 'Expense'} 
+                                    value="expense"
+                                    checked={this.state.formVariables.type === 'expense'} 
                                     onChange={(event) => this.handleUserInput(event)}
                                     required
                                 />
@@ -273,8 +294,8 @@ class AddTransaction extends Component {
                                     type="radio" 
                                     ref="type" 
                                     name="type" 
-                                    value="Income" 
-                                    checked={this.state.formVariables.type === 'Income'} 
+                                    value="income" 
+                                    checked={this.state.formVariables.type === 'income'} 
                                     onChange={(event) => this.handleUserInput(event)}
                                     required 
                                 />
@@ -318,13 +339,13 @@ class AddTransaction extends Component {
                                 <label htmlFor="transaction-date">Date</label>
                             </div>
                         </div>
-                        <div className={"transaction-column column-8 " + this.state.date }>
-                            <div className={"transaction-data data " + this.state.date }>
+                        <div className={"transaction-column column-8 "}>
+                            <div className={"transaction-data data "}>
                                 <input 
-                                    className={"trans-input " + this.state.date } 
+                                    className={"trans-input "} 
                                     type="date" 
-                                    id="transaction-date" 
-                                    name="transaction[date]" 
+                                    id="date" 
+                                    name="date" 
                                     value={this.state.formVariables.date}
                                     onChange={(event) => this.handleUserInput(event)}
                                     required 
@@ -384,8 +405,8 @@ class AddTransaction extends Component {
                                     <option value="groceries">
                                         groceries
                                     </option>
-                                    <option value="coffee">
-                                        coffee
+                                    <option value="games" >
+                                        games
                                     </option>
                                 </select>
                             </div>

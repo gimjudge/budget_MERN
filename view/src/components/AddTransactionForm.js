@@ -290,10 +290,13 @@ class AddTransaction extends Component {
                                     id="amount" 
                                     name="amount"
                                     ref="amount"
+                                    value={this.state.formVariables.amount}
+                                    onChange={(event) => this.handleUserInput(event)}
                                     placeholder="0.00" 
                                     step="0.01" 
                                     required 
                                 />
+                                    
                             </div>
                         </div>
                     </div>
@@ -313,7 +316,8 @@ class AddTransaction extends Component {
                                     id="date" 
                                     name="date"
                                     ref="date"
-                                    defaultValue={this.state.dateNow}
+                                    value={this.state.formVariables.date}
+                                    onChange={(event) => this.handleUserInput(event)}
                                     required 
                                 /> 
                             </div>

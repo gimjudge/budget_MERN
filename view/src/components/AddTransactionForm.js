@@ -324,14 +324,15 @@ class AddTransaction extends Component {
                                     className="trans-input trans-input-amount {this.state[amount]}" 
                                     type="number" 
                                     id="amount" 
-                                    name="amount" 
+                                    name="amount"
+                                    ref="amount"
                                     value={this.state.formVariables.amount}
                                     onChange={(event) => this.handleUserInput(event)}
                                     placeholder="0.00" 
                                     step="0.01" 
                                     required 
                                 />
-                                    ref="amount" 
+                                    
                             </div>
                         </div>
                     </div>
@@ -349,11 +350,12 @@ class AddTransaction extends Component {
                                     className={"trans-input "} 
                                     type="date" 
                                     id="date" 
-                                    name="date" 
+                                    name="date"
+                                    ref="date"
                                     value={this.state.formVariables.date}
                                     onChange={(event) => this.handleUserInput(event)}
                                     required 
-                                /> ref="date"
+                                /> 
                             </div>
                         </div>
                     </div>

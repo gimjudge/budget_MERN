@@ -211,6 +211,7 @@ class AddTransaction extends Component {
     handleSubmit = e => {
         e.preventDefault();
         //console.log(this.refs);
+        
         let postJSON = {}
         for (let ref in this.refs) {
             if (ref !== "image" && ref !== "tags")
@@ -219,7 +220,10 @@ class AddTransaction extends Component {
             }
             //postJSON[ref] = (this.fieldValidation(this.refs[ref].value)) ? this.refs[ref].value : this.refs[ref].value;
         }
-
+        /*
+        let postJSON = this.state.fieldVariables;
+        */
+        console.log('submit');
         console.log(postJSON);
 
         axios.post('http://localhost:3001/transaction/detail', postJSON)

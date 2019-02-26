@@ -273,7 +273,7 @@ class AddTransaction extends Component {
                     <div className={"trans-type-row-content row-content " + this.state.type }>
                         <div className="trans-type-column column-6">
                             <div className="trans-type-data data">
-                                <button className="trans-expense trans-type-button" >Expense</button>
+                                <button className="trans-expense trans-type-button trans-active-button" >Expense</button>
                                 <input 
                                     className="trans-expense trans-type-radio" 
                                     type="radio" 

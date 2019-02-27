@@ -6,6 +6,11 @@ import axios from 'axios';
 // Fav Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+// Components
+import Type from './transactionForm/Type';
+import Type2 from './transactionForm/Type2';
+import Type3 from './transactionForm/Type3';
+
 class AddTransaction extends Component {
 
     constructor(props) {
@@ -30,6 +35,8 @@ class AddTransaction extends Component {
             toDetailed: false,
             detailID: ''
         };
+
+        this.handleUserInput = this.handleUserInput.bind(this);
     }
 
     componentDidMount() {
@@ -174,6 +181,7 @@ class AddTransaction extends Component {
         On Change user inputs
     */
     handleUserInput (e) {
+        console.log('WORK');
         const name = e.target.name;
         const value = e.target.value;
         /*
@@ -258,27 +266,7 @@ class AddTransaction extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="row-content">
-                        <div className="column-12">
-                            <div className="data">
-                                {
-                                    Object.keys(this.state.formValid).map((fieldName, index) => {
-                                        if (this.state.formValid[fieldName].length > 0) {
-                                            console.log('things');
-                                            return (
-                                                <p key={ index }> { fieldName } { this.state.formValid[fieldName] } </p>
-                                            )
-                                        } else {
-                                            console.log('nothings');
-                                            return '';
-                                        }
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {/*
                 <div className="trans-type-row row" onClick={ this.handleRadioAndButton }>
                     <div className={"trans-type-row-content row-content " + this.state.type }>
                         <div className="trans-type-column column-6">
@@ -313,6 +301,11 @@ class AddTransaction extends Component {
                         </div>
                     </div>
                 </div>
+                */}
+                <Type2 
+                    checked={this.state.formVariables.type} 
+                    onChange={this.handleUserInput} 
+                />
                 <div className="transaction-row trans-row-amount-title row">
                     <div className="transaction-row-content row-content">
                         <div className="transaction-column column-12">

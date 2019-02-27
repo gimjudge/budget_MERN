@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
@@ -165,15 +164,11 @@ class AddTransaction extends Component {
     }
 
     /*
-        On Change user inputs
+        onChange user inputs
     */
     handleUserInput (e) {
-        //console.log(e);
-        //console.log('WORK');
         const name = e.target.name;
         const value = e.target.value;
-        /*
-        */
         this.setState(prevState => ({
             formVariables: {
                 ...prevState.formVariables,
@@ -181,8 +176,6 @@ class AddTransaction extends Component {
             }
         }),() => { this.fieldValidation(name, value) }
         );
-       
-       //this.fieldVariables(name, value);
     }
 
     /*
@@ -190,32 +183,13 @@ class AddTransaction extends Component {
     */
     handleSubmit = e => {
         e.preventDefault();
-        //console.log(this.refs);
-        /*
-        let postJSON = {}
-        for (let ref in this.refs) {
-            if (ref !== "image" && ref !== "tags") {
-                if (this.fieldIsSet(this.refs[ref].value)){
-                    postJSON[ref] = this.refs[ref].value;
-                }
-            }
-        }
-        */
         
-        console.log('submit');
         if (this.state.formValid) {
             let postJSON = this.state.formVariables;
-            console.log(postJSON);
             axios.post('http://localhost:3001/transaction/detail', postJSON)
             .then(response => {
-                console.log('1');
-                console.log(response);
-                console.log('2');
                 if (response.status === 201) {
                     this.setState({ detailID: response.data._id });
-                    
-                    /* Needs withRouter from react-router */
-                    //this.props.history.push('/detailed');
 
                     /* Needs Redirect from react-router-dom */
                     this.setState({ toDetailed: true });
@@ -233,7 +207,7 @@ class AddTransaction extends Component {
     */
     render () {
         /* Redirect to detailed */
-        if (this.state.toDetailed === true && false) {
+        if (this.state.toDetailed === true) {
             return <Redirect to={{
                 pathname: '/detailed',
                 state: { detailID: this.state.detailID }
@@ -281,7 +255,7 @@ class AddTransaction extends Component {
                 <Footer 
                     cancelButton={this.handleCancelButton}
                     cameraButton={this.handleCameraButton}
-                    formValid = {this.state.formValid}
+                    formValid={this.state.formValid}
                 />
             </div>
         </form>

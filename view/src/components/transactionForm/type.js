@@ -12,7 +12,6 @@ class Type extends Component {
                                 id="type-expense"
                                 className="trans-expense trans-type-radio" 
                                 type="radio" 
-                                ref="type" 
                                 name="type" 
                                 value="expense"
                                 checked={this.props.checked === 'expense'} 
@@ -28,7 +27,6 @@ class Type extends Component {
                                 id="type-income"
                                 className="trans-income trans-type-radio" 
                                 type="radio" 
-                                ref="type" 
                                 name="type" 
                                 value="income" 
                                 checked={this.props.checked === 'income'} 

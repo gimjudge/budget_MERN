@@ -21,7 +21,7 @@ const Amount = props => {
                                     type="number" 
                                     id="amount" 
                                     name="amount"
-                                    value={props.amount}
+                                    value={props.value}
                                     onChange={ props.onChange}
                                     placeholder="0.00" 
                                     step="0.01" 
@@ -35,4 +35,4 @@ const Amount = props => {
     );
 }
 
-export default Amount
+export default Amount;

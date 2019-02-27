@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-// Fav Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Components
 import Type from './transactionForm/Type';
+import Amount from './transactionForm/Amount';
+import TransDate from './transactionForm/TransDate';
+import Merchant from './transactionForm/Merchant';
+import Category from './transactionForm/Category';
+import Notes from './transactionForm/Notes';
+import Footer from './transactionForm/Footer';
 
 class AddTransaction extends Component {
     
@@ -27,7 +31,7 @@ class AddTransaction extends Component {
                 date: dateNow,
                 merchant: '',
                 category: 'gas',
-                notes: ''
+                note: ''
             },
             fieldValid: {
                 amount: false,
@@ -43,32 +47,13 @@ class AddTransaction extends Component {
         };
 
         this.handleUserInput = this.handleUserInput.bind(this);
-        this.handleRadioAndButton = this.handleRadioAndButton.bind(this);
+        this.handleCancelButton = this.handleCancelButton.bind(this);
+        this.handleCameraButton = this.handleCameraButton.bind(this);
     }
 
     componentDidMount() {
         for (let name in this.state.fieldValid) {
             this.fieldValidation(name, this.state.formVariables[name]);
-        }
-    }
-    /*
-        date Function
-    */
-    
-    /*
-        Handles the Transaction type Radio Button and Button
-    */
-    handleRadioAndButton = e => {
-        let buttons = document.getElementsByClassName("trans-type-button");
-        for (let i=0; i < buttons.length; i++) {
-            buttons[i].classList.remove("trans-active-button");
-        }
-        if (e.target.tagName === "BUTTON") {
-            e.preventDefault();
-            e.target.classList.add("trans-active-button");
-            e.target.nextElementSibling.checked = true;
-        } else if (e.target.tagName === "INPUT") {
-            e.target.previousElementSibling.classList.add("trans-active-button");
         }
     }
     
@@ -85,14 +70,6 @@ class AddTransaction extends Component {
     handleCameraButton = e => {
         e.preventDefault();
         e.target.nextElementSibling.click();
-    }
-
-    /*
-        Handle Submit
-    */
-    handleSubmitButton = e => {
-        console.log('this');
-        //onClick={ this.handleSubmitButton } 
     }
 
     /*
@@ -191,8 +168,8 @@ class AddTransaction extends Component {
         On Change user inputs
     */
     handleUserInput (e) {
-        console.log(e);
-        console.log('WORK');
+        //console.log(e);
+        //console.log('WORK');
         const name = e.target.name;
         const value = e.target.value;
         /*
@@ -277,230 +254,35 @@ class AddTransaction extends Component {
                         </div>
                     </div>
                 </div>
-                {/*
-                <div className="trans-type-row row" onClick={ this.handleRadioAndButton }>
-                    <div className={"trans-type-row-content row-content " + this.state.type }>
-                        <div className="trans-type-column column-6">
-                            <div className="trans-type-data data">
-                                <button className="trans-expense trans-type-button trans-active-button" >Expense</button>
-                                <input 
-                                    className="trans-expense trans-type-radio" 
-                                    type="radio" 
-                                    ref="type" 
-                                    name="type" 
-                                    value="expense"
-                                    checked={this.state.formVariables.type === 'expense'} 
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="transaction-column column-6">
-                            <div className="transaction-data data" >
-                                <button className="trans-income trans-type-button">Income</button>
-                                <input 
-                                    className="trans-income trans-type-radio" 
-                                    type="radio" 
-                                    ref="type" 
-                                    name="type" 
-                                    value="income" 
-                                    checked={this.state.formVariables.type === 'income'} 
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    required 
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                */}
                 <Type 
                     checked={this.state.formVariables.type} 
                     onChange={this.handleUserInput}
                 />
-                <div className="transaction-row trans-row-amount-title row">
-                    <div className="transaction-row-content row-content">
-                        <div className="transaction-column column-12">
-                            <div className="transaction-data data">
-                                <label htmlFor="amount">Amount</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="trans-row-amount row">
-                    <div className="transaction-row-content row-content">
-                        <div className="transaction-column column-12">
-                            <div className="transaction-data data">
-                                <input 
-                                    className="trans-input trans-input-amount {this.state[amount]}" 
-                                    type="number" 
-                                    id="amount" 
-                                    name="amount"
-                                    ref="amount"
-                                    value={this.state.formVariables.amount}
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    placeholder="0.00" 
-                                    step="0.01" 
-                                    required 
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="transaction-row row">
-                    <div className="transaction-row-content row-content">
-                        <div className="transaction-column column-4">
-                            <div className="transaction-data data">
-                                <label htmlFor="transaction-date">Date</label>
-                            </div>
-                        </div>
-                        <div className={"transaction-column column-8 "}>
-                            <div className={"transaction-data data "}>
-                                <input 
-                                    className={"trans-input "} 
-                                    type="date" 
-                                    id="date" 
-                                    name="date"
-                                    ref="date"
-                                    value={this.state.formVariables.date}
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    required 
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="transaction-row row">
-                <div className="transaction-row-content row-content">
-                    <div className="transaction-column column-4">
-                        <div className="transaction-data data">
-                            <label htmlFor="merchant">Merchant</label>
-                        </div>
-                    </div>
-                    <div className="transaction-column column-8">
-                        <div className="transaction-data data">
-                            <input 
-                                className="trans-input" 
-                                type="text" 
-                                id="merchant"
-                                name="merchant" 
-                                value={this.state.formVariables.merchant}
-                                onChange={(event) => this.handleUserInput(event)}
-                                placeholder="Merchant" 
-                                ref="merchant"
-                                required
-                            />
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div className="transaction-row row">
-                    <div className="transaction-row-content row-content">
-                        <div className="transaction-column column-4">
-                            <div className="transaction-data data">
-                                <label htmlFor="category">Category</label>
-                            </div>
-                        </div>
-                        <div className="transaction-column column-8">
-                            <div className="transaction-data data">
-                                <select 
-                                    className="trans-input" 
-                                    id="category" 
-                                    name="category"
-                                    value={this.state.formVariables.category}
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    ref="category" 
-                                    required
-                                >
-                                    <option value="coffee">
-                                        coffee
-                                    </option>
-                                    <option value="gas">
-                                        gas
-                                    </option>
-                                    <option value="groceries">
-                                        groceries
-                                    </option>
-                                    <option value="games" >
-                                        games
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/*
-                <div className="transaction-row row">
-                    <div className="transaction-row-content row-content">
-                        <div className="transaction-column column-4">
-                            <div className="transaction-data data">
-                                <label htmlFor="tags">Tags</label>
-                            </div>
-                        </div>
-                        <div className="transaction-column column-8">
-                            <div className="transaction-data data">
-                                <input 
-                                    className="trans-input" 
-                                    id="tags" 
-                                    type="text" 
-                                    name="tags"
-                                    value={this.state.tags}
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    placeholder="Tags separated by a comma" 
-                                    ref="tags"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                */}
-                <div className="transaction-row row">
-                    <div className="transaction-row-content row-content">
-                        <div className="transaction-column column-4">
-                            <div className="transaction-data data">
-                                Notes
-                            </div>
-                        </div>
-                        <div className="transaction-column column-8">
-                            <div className="transaction-data data">
-                                <input 
-                                    className="trans-input" 
-                                    type="text" 
-                                    name="notes"
-                                    value={this.state.formVariables.notes}
-                                    onChange={(event) => this.handleUserInput(event)}
-                                    placeholder="Notes" 
-                                    ref="notes" 
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="finalizing-row row">
-                    <div className="finalizing-content row-content">
-                        <div className="finalizing-column column-4">
-                            <div className="finalizing-data data center">
-                                <button className="trans-cancel" onClick={ this.handleCancelButton } >
-                                    <FontAwesomeIcon icon="times" />
-                                </button>
-                            </div>
-                        </div>
-                        <div className="finalizing-column column-4">
-                            <div className="finalizing-data data center">
-                                <button className="trans-camera" onClick={ this.handleCameraButton } >
-                                    <FontAwesomeIcon icon="camera" />
-                                </button>
-                                <input type="file" accept="image/*;capture=camera" ref="image"></input>
-                            </div>
-                        </div>
-                        <div className="finalizing-column column-4">
-                            <div className="finalizing-data data center">
-                                <button className="trans-submit" type="submit" disabled={!this.state.formValid}>
-                                    <FontAwesomeIcon icon="check" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Amount 
+                    value={this.state.formVariables.amount} 
+                    onChange={this.handleUserInput}
+                />
+                <TransDate 
+                    value={this.state.formVariables.date} 
+                    onChange={this.handleUserInput}
+                />
+                <Merchant 
+                    value={this.state.formVariables.merchant} 
+                    onChange={this.handleUserInput}
+                />
+                <Category 
+                    value={this.state.formVariables.category} 
+                    onChange={this.handleUserInput}
+                />
+                <Notes 
+                    value={this.state.formVariables.notes} 
+                    onChange={this.handleUserInput}
+                />
+                <Footer 
+                    cancelButton={this.handleCancelButton}
+                    cameraButton={this.handleCameraButton}
+                    formValid = {this.state.formValid}
+                />
             </div>
         </form>
     );

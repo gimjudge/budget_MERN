@@ -1,24 +1,26 @@
+
 import React from 'react';
 
-const Notes = props => {
+const TransDate = props => {
     return (
         <div className="transaction-row row">
             <div className="transaction-row-content row-content">
                 <div className="transaction-column column-4">
                     <div className="transaction-data data">
-                        Note
+                        <label htmlFor="transaction-date">Date</label>
                     </div>
                 </div>
-                <div className="transaction-column column-8">
-                    <div className="transaction-data data">
+                <div className={"transaction-column column-8 "}>
+                    <div className={"transaction-data data "}>
                         <input 
-                            className="trans-input" 
-                            type="text" 
-                            name="note"
+                            className={"trans-input "} 
+                            type="date" 
+                            id="date" 
+                            name="date"
                             value={props.value}
                             onChange={props.onChange}
-                            placeholder="Note"
-                        />
+                            required 
+                        /> 
                     </div>
                 </div>
             </div>
@@ -26,4 +28,4 @@ const Notes = props => {
     );
 }
 
-export default Notes;
+export default TransDate;                

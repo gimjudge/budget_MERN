@@ -8,6 +8,7 @@ const TransactionSchema = new Schema({
     amount: { type: Number, required: true },
     type: { type: String, required: true  },
     category: { type: String, required: true },
+    merchant: { type: String, required: true },
     note: { type: String, default: null },
     date: { type: Date, default: Date.now },
     date_created: { type: Date, default: Date.now },

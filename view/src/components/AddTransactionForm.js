@@ -8,20 +8,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Components
 import Type from './transactionForm/Type';
-import Type2 from './transactionForm/Type2';
-import Type3 from './transactionForm/Type3';
 
 class AddTransaction extends Component {
-
+    
     constructor(props) {
         super(props);
+        const d = new Date(),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            yyyy = d.getFullYear();
+        const mm = (month.length < 2) ? '0' + month : month;
+        const dd = (day.length < 2) ? '0' + day : day;
+        const dateNow = [yyyy, mm, dd].join('-');
         this.state = {
             formVariables: {
                 type: "expense",
-                amount: 0.00,
-                date: "2018-02-26",
+                amount: '',
+                date: dateNow,
                 merchant: '',
-                category: 'gas'
+                category: 'gas',
+                notes: ''
             },
             fieldValid: {
                 amount: false,
@@ -37,6 +43,7 @@ class AddTransaction extends Component {
         };
 
         this.handleUserInput = this.handleUserInput.bind(this);
+        this.handleRadioAndButton = this.handleRadioAndButton.bind(this);
     }
 
     componentDidMount() {
@@ -44,7 +51,10 @@ class AddTransaction extends Component {
             this.fieldValidation(name, this.state.formVariables[name]);
         }
     }
-
+    /*
+        date Function
+    */
+    
     /*
         Handles the Transaction type Radio Button and Button
     */
@@ -181,6 +191,7 @@ class AddTransaction extends Component {
         On Change user inputs
     */
     handleUserInput (e) {
+        console.log(e);
         console.log('WORK');
         const name = e.target.name;
         const value = e.target.value;
@@ -203,7 +214,7 @@ class AddTransaction extends Component {
     handleSubmit = e => {
         e.preventDefault();
         //console.log(this.refs);
-        
+        /*
         let postJSON = {}
         for (let ref in this.refs) {
             if (ref !== "image" && ref !== "tags") {
@@ -212,12 +223,12 @@ class AddTransaction extends Component {
                 }
             }
         }
-        /*
-        let postJSON = this.state.fieldVariables;
         */
+        
         console.log('submit');
-        console.log(postJSON);
         if (this.state.formValid) {
+            let postJSON = this.state.formVariables;
+            console.log(postJSON);
             axios.post('http://localhost:3001/transaction/detail', postJSON)
             .then(response => {
                 console.log('1');
@@ -244,8 +255,8 @@ class AddTransaction extends Component {
         Render Add transaction Form
     */
     render () {
-        /**/
-        if (this.state.toDetailed === true) {
+        /* Redirect to detailed */
+        if (this.state.toDetailed === true && false) {
             return <Redirect to={{
                 pathname: '/detailed',
                 state: { detailID: this.state.detailID }
@@ -302,9 +313,9 @@ class AddTransaction extends Component {
                     </div>
                 </div>
                 */}
-                <Type2 
+                <Type 
                     checked={this.state.formVariables.type} 
-                    onChange={this.handleUserInput} 
+                    onChange={this.handleUserInput}
                 />
                 <div className="transaction-row trans-row-amount-title row">
                     <div className="transaction-row-content row-content">
@@ -331,7 +342,6 @@ class AddTransaction extends Component {
                                     step="0.01" 
                                     required 
                                 />
-                                    
                             </div>
                         </div>
                     </div>

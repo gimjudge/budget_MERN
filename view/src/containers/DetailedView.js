@@ -4,9 +4,28 @@ class DetailedView extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            formVariables: {
+                type: "expense",
+                amount: 0.00,
+                date: "2018-02-26",
+                merchant: '',
+                category: 'gas'
+            },
+            fieldValid: {
+                amount: false,
+                category: false,
+                date: false,
+                merchant: false,
+                type: false
+            },
+            formResponse: '',
+            formValid: false,
+            toDetailed: false,
             detailID: ''
         };
-        console.log(props);
+    }
+    
+    componentDidMount() {
     }
     render () {
         return (

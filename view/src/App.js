@@ -7,14 +7,18 @@ import {
 
 // App Components
 import Header from './components/Header';
-
 // App Containers
 import Home from './containers/Home';
+//// Single Transactions
 import AddTransation from './containers/AddTransaction';
+import ViewTransation from './containers/ViewTransaction';
+import EditTransation from './containers/EditTransaction';
+//// Category Summary per Month
 import Overview from './containers/Overview';
-import DetailedView from './containers/DetailedView';
+//// Authentication
 import Login from './containers/Login';
 import Register from './containers/Login';
+//// Errors
 import NotFound from './NotFound';
 
 // Fav Icons
@@ -36,8 +40,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/"  component={Home} />
             <Route path="/add_transaction"  component={AddTransation} />
+            <Route path="/view_transaction" component={ViewTransation} />
+            <Route path="/edit_transaction" component={EditTransation} />
             <Route path="/overview" component={Overview} />
-            <Route path="/detailed" component={DetailedView} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route component={NotFound} />

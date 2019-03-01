@@ -41,7 +41,7 @@ class AddTransaction extends Component {
             },
             formResponse: '',
             formValid: false,
-            toDetailed: false,
+            toViewTransaction: false,
             detailID: ''
         };
 
@@ -144,26 +144,6 @@ class AddTransaction extends Component {
     }
 
     /*
-        Set valid class
-        Expects String
-        (To be implimented later)
-    */
-    errorField (fieldName) {
-        if (this.state.formValid[fieldName]) {
-            return 'trans-field-valid';
-        } else {
-            return 'trans-field-invalid';
-        }
-    }
-
-    /*
-        Field is Set
-    */
-    fieldIsSet (value) {
-        return (value !== undefined);
-    }
-
-    /*
         onChange user inputs
     */
     handleUserInput (e) {
@@ -192,7 +172,7 @@ class AddTransaction extends Component {
                     this.setState({ detailID: response.data._id });
 
                     /* Needs Redirect from react-router-dom */
-                    this.setState({ toDetailed: true });
+                    this.setState({ toViewTransaction: true });
                 }
             })
             .catch(function (error) {
@@ -207,9 +187,9 @@ class AddTransaction extends Component {
     */
     render () {
         /* Redirect to detailed */
-        if (this.state.toDetailed === true) {
+        if (this.state.toViewTransaction === true) {
             return <Redirect to={{
-                pathname: '/detailed',
+                pathname: '/view_transaction',
                 state: { detailID: this.state.detailID }
                 }} />
         }
@@ -218,7 +198,7 @@ class AddTransaction extends Component {
         return (
         <form className="transaction-form" onSubmit={this.handleSubmit} method="POST" autoComplete="on">
             <div className="transaction-container container">
-            <div className="row">
+                <div className="row">
                     <div className="row-content">
                         <div className="column-12">
                             <div className="data">

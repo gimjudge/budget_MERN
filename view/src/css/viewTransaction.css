@@ -1,23 +1,38 @@
 /* 
-	Overview Specific
+	View Transaction Specific
 */
 .table-header {
     border-bottom: 1px solid #99cfe0;
     text-align: center;
-
 }
-.view-transaction-container {
+.vt-container {
     background-color:#fff;
     margin-top: 1rem;
-    padding: .75rem;
+	padding: .75rem;
+    justify-content: center;
+}
+.vt-container .row-content {
+    justify-content: center;
+}
+.vt-container .row {
+	margin-top: .5rem;
+    justify-content: center;
+}
+.vt-container .data {
+	/*border: 1px solid #000;*/
+    justify-content: center;
+}
+.vt-container .title {
+	font-weight: bold;
 }
 
 .number-data {
     text-align: right;
 }
-.table-footer {
+.vt-container .table-footer {
 	border-top: 1px solid #d4ebf2;
-    padding-top: .15rem;
+	margin-top: 1.25rem;
+    padding-top: .5rem;
 }
 
 /* 
@@ -28,11 +43,6 @@
 	/* 
 		Content 
 	*/
-	.category-container {
-		border-radius: 1rem;
-		margin: 1rem;
-		padding: .75rem;
-	}
 }
 /* Medium */
 @media (min-width:769px) {

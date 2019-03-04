@@ -22,6 +22,11 @@ a {
 	text-decoration: none;
 }
 
+h1,
+h2 {
+	text-align: center;
+}
+
 /* Buttons */
 button {
     background: lightgrey;
@@ -55,8 +60,6 @@ button:hover {
 /*
 	Base Layout Styles
 */
-
-
 .main-content {
     background-color:#c1e1ec;
     padding: .75rem;
@@ -64,6 +67,12 @@ button:hover {
 .main-title {
 	margin: 0;
 	text-align: center;
+}
+.center {
+	text-align: center;
+}
+.right {
+	text-align: right;
 }
 
 

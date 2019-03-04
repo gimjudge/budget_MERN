@@ -86,14 +86,7 @@ const DisplayTransaction = props => {
             <div className="row table-footer">
                 <div className="row-content">
                     <div className="column-4">
-                        <div className="data">
-                            <button>
-                                <NavLink to="/edit_transaction" activeClassName="selected">Edit</NavLink>
-                            </button>
-                        </div>
-                    </div>
-                    <div className="column-4">
-                        <div className="data right">
+                        <div className="data center">
                             <button>
                                 <NavLink to="/edit_transaction" activeClassName="selected">Edit</NavLink>
                             </button>

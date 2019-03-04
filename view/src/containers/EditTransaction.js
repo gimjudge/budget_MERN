@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-import '../css/addTransaction.css';
-import AddTransactionForm from '../components/AddTransactionForm';
+import '../css/transaction.css';
+import EditTransactionForm from '../components/EditTransactionForm';
 
-class AddTransaction extends Component {
+class EditTransaction extends Component {
 
     render () {
         return (
             <div className="main-content">
-                <AddTransactionForm />
+                <EditTransactionForm />
             </div>
         );
     }
 }
 
-export default AddTransaction;
+export default EditTransaction;

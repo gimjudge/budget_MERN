@@ -10,7 +10,7 @@ import TransDate from './transactionForm/TransDate';
 import Merchant from './transactionForm/Merchant';
 import Category from './transactionForm/Category';
 import Notes from './transactionForm/Notes';
-import Footer from './transactionForm/Footer';
+import Footer from './transactionForm/EditFooter';
 
 class AddTransaction extends Component {
     

@@ -4,14 +4,12 @@ import axios from 'axios';
 
 
 // Components
-import TransactionForm from './transactionForm/TransactionForm';
 import Type from './transactionForm/Type';
 import Amount from './transactionForm/Amount';
 import TransDate from './transactionForm/TransDate';
 import Merchant from './transactionForm/Merchant';
 import Category from './transactionForm/Category';
 import Notes from './transactionForm/Notes';
-import Footer from './transactionForm/AddFooter';
 
 class AddTransaction extends Component {
     
@@ -115,76 +113,9 @@ class AddTransaction extends Component {
                 }
         }
     }
-
-    /*
-        Field Validation
-        Expects String, boolean
-    */
-    fieldValidation (fieldName, value) {
-        this.setState((prevState)=>({
-            fieldValid:{
-                ...prevState.fieldValid,
-                [fieldName]: this.isFieldValid(fieldName, value)
-            }
-        }), () => { this.formValidation() });
-    }
-
-    /*
-        Form Validation
-        sets state to true or false
-    */
-    formValidation() {
-        let result = true;
-        for (let index in this.state.fieldValid) {
-            if (this.state.fieldValid[index] !== true) {
-                result = false;
-                break;
-            }
-        }
-        this.setState({formValid: result});
-    }
-
-    /*
-        onChange user inputs
-    */
-    handleUserInput (e) {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState(prevState => ({
-            formVariables: {
-                ...prevState.formVariables,
-                [name]: value
-            }
-        }),() => { this.fieldValidation(name, value) }
-        );
-    }
-
-    /*
-        handle Submit
-    */
-    handleSubmit = e => {
-        e.preventDefault();
         
-        if (this.state.formValid) {
-            let postJSON = this.state.formVariables;
-            axios.post('http://localhost:3001/transaction/detail', postJSON)
-            .then(response => {
-                if (response.status === 201) {
-                    this.setState({ detailID: response.data._id });
-
-                    /* Needs Redirect from react-router-dom */
-                    this.setState({ toViewTransaction: true });
-                }
-            })
-            .catch(function (error) {
-                console.log(error.response);
-            });
-        }
-        
-    }
-    
     /*
-        Render Add transaction Form
+        Render transaction Form
     */
     render () {
         /* Redirect to detailed */
@@ -197,18 +128,7 @@ class AddTransaction extends Component {
         
 
         return (
-        <form className="transaction-form" onSubmit={this.handleSubmit} method="POST" autoComplete="on">
             <div className="transaction-container container">
-                <div className="row">
-                    <div className="row-content">
-                        <div className="column-12">
-                            <div className="data">
-                                <h1 className="main-title">Add Transaction</h1>
-                                <div id="demo"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <Type 
                     checked={this.state.formVariables.type} 
                     onChange={this.handleUserInput}
@@ -233,17 +153,11 @@ class AddTransaction extends Component {
                     value={this.state.formVariables.notes} 
                     onChange={this.handleUserInput}
                 />
-                <Footer 
-                    cancelButton={this.handleCancelButton}
-                    cameraButton={this.handleCameraButton}
-                    formValid={this.state.formValid}
-                />
             </div>
-        </form>
     );
   }
 }
 
 //export default withRouter(AddTransaction);
-export default AddTransaction;
+export default TransactionForm;
       

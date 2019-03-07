@@ -9,7 +9,7 @@ import Amount from './transactionForm/Amount';
 import TransDate from './transactionForm/TransDate';
 import Merchant from './transactionForm/Merchant';
 import Category from './transactionForm/Category';
-import Notes from './transactionForm/Notes';
+import Note from './transactionForm/Note';
 import Footer from './transactionForm/EditFooter';
 
 class AddTransaction extends Component {
@@ -179,7 +179,6 @@ class AddTransaction extends Component {
                 console.log(error.response);
             });
         }
-        
     }
     
     /*
@@ -228,7 +227,7 @@ class AddTransaction extends Component {
                     value={this.state.formVariables.category} 
                     onChange={this.handleUserInput}
                 />
-                <Notes 
+                <Note 
                     value={this.state.formVariables.notes} 
                     onChange={this.handleUserInput}
                 />

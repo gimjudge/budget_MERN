@@ -13,9 +13,8 @@ const Header = () => (
       <input className="menu-checkbox" type="checkbox" id="menu"></input>
     <div className="main-nav menu-content">
       <ul className="main-nav">
-        <li><NavLink to="/add_transaction" activeClassName="selected">Add Transaction</NavLink></li>
+        <li><NavLink to="/transaction/add" activeClassName="selected">Add Transaction</NavLink></li>
         <li><NavLink to="/overview" activeClassName="selected">Overview</NavLink></li>
-        <li><NavLink to="/profile" activeClassName="selected">Profile</NavLink></li>
         <li><NavLink to="/login" activeClassName="selected">Login</NavLink></li>
       </ul>
     </div>

@@ -3,7 +3,7 @@ import React from 'react';
 // Fav Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Footer = props => {
+const AddFooter = props => {
     return (
         <div className="finalizing-row row">
             <div className="finalizing-content row-content">
@@ -34,4 +34,4 @@ const Footer = props => {
     );
 }
 
-export default Footer;
+export default AddFooter;

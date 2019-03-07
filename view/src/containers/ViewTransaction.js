@@ -26,9 +26,12 @@ class ViewTransation extends Component {
     }
 
     componentDidMount() {
-        this.getTransaction(this.props.location.state.detailID);
+        //console.log(this);
+        this.getTransaction(this.requestTransactionId());
     }
-
+    requestTransactionId() {
+        return this.props.transactionID;
+    }
     getTransaction (id) {
         axios.get(`http://localhost:3001/transaction/detail/${id}`)
             .then(response => {
@@ -45,7 +48,6 @@ class ViewTransation extends Component {
 
     render () {
         return (
-            <div className="main-content">
                 <div className=" container">
                     <div className="row">
                         <div className="row-content">
@@ -58,7 +60,6 @@ class ViewTransation extends Component {
                     </div>
                     <DisplayTransaction displayFields={this.state.displayFields} fields={this.state.fields} />
                 </div>
-            </div>
         );
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Notes = props => {
+const Note = props => {
     return (
         <div className="transaction-row row">
             <div className="transaction-row-content row-content">
@@ -26,4 +26,4 @@ const Notes = props => {
     );
 }
 
-export default Notes;
+export default Note;

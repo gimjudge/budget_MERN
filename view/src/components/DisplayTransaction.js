@@ -5,13 +5,27 @@ import { NavLink } from 'react-router-dom';
 //import DisplayRow from './viewTransaction/DisplayRow';
 
 const DisplayTransaction = props => {
+    console.log(props);
     let data = {};
+    let transactionID ='';
     for (let field in props.fields) {
-        data[field] = props.fields[field];
-        if (field === "type") {
-            data[field] = props.fields[field].toUpperCase();
+        switch(field) {
+            case "_id":
+                transactionID = props.fields[field];
+                break;
+            case "type":
+                data[field] = props.fields[field].toUpperCase();
+                break;
+            case "date":
+                let date = new Date(props.fields[field]);
+                data[field] = date.toDateString();
+                break;
+            default:
+                data[field] = props.fields[field];
+                break;
         }
     }
+    //console.log(data);
     return (
         <div className="vt-container container">
             <div className="row table-header">
@@ -32,7 +46,7 @@ const DisplayTransaction = props => {
                     </div>
                     <div className="column-3">
                         <div className="data right">
-                            {props.fields.category}
+                            {data.category}
                         </div>
                     </div>
                 </div>
@@ -46,7 +60,7 @@ const DisplayTransaction = props => {
                     </div>
                     <div className="column-3">
                         <div className="data right">
-                            {props.fields.merchant}
+                            {data.merchant}
                         </div>
                     </div>
                 </div>
@@ -67,6 +81,20 @@ const DisplayTransaction = props => {
             </div>
             <div className="row">
                 <div className="row-content">
+                    <div className="column-3">
+                        <div className="data title">
+                            Date
+                        </div>
+                    </div>
+                    <div className="column-3">
+                        <div className="data right">
+                            {data.date}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="row-content">
                     <div className="column-6">
                         <div className="data title center">
                             Note
@@ -78,7 +106,7 @@ const DisplayTransaction = props => {
                 <div className="row-content">
                     <div className="column-6">
                         <div className="data center">
-                            {props.fields.note}
+                            {data.note}
                         </div>
                     </div>
                 </div>
@@ -88,7 +116,7 @@ const DisplayTransaction = props => {
                     <div className="column-4">
                         <div className="data center">
                             <button>
-                                <NavLink to="/edit_transaction" activeClassName="selected">Edit</NavLink>
+                                <NavLink to={`/transaction/edit/${transactionID}`} activeClassName="selected">Edit</NavLink>
                             </button>
                         </div>
                     </div>

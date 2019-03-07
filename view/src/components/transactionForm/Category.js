@@ -19,6 +19,9 @@ const Category = props => {
                             onChange={props.onChange}
                             required
                         >
+                            <option value="">
+                                Pick Category
+                            </option>
                             <option value="coffee">
                                 coffee
                             </option>

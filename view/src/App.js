@@ -12,10 +12,10 @@ import Home from './containers/Home';
 //// Single Transactions
 /*
 import AddTransation from './containers/AddTransaction';
-import ViewTransation from './containers/ViewTransaction';
 import EditTransation from './containers/EditTransaction';
 */
 import Transation from './containers/Transaction';
+import ViewTransation from './containers/ViewTransaction';
 //// Category Summary per Month
 import Overview from './containers/Overview';
 //// Authentication
@@ -26,9 +26,9 @@ import NotFound from './NotFound';
 
 // Fav Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faCheck, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCheck, faCamera, faTimes, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faCheck, faCamera, faTimes);
+library.add(faBars, faCheck, faCamera, faTimes, faTrash, faEdit);
 
 /*
             <Route exact path="/" component={Home} />
@@ -37,6 +37,7 @@ library.add(faBars, faCheck, faCamera, faTimes);
             <Route path="/add_transaction"  component={AddTransation} />
             <Route path="/view_transaction" component={ViewTransation} />
             <Route path="/edit_transaction" component={EditTransation} />
+            <Route path="/transaction/:action/:id?"  component={Transation} />
 */
 class App extends Component {
   render () {
@@ -46,9 +47,8 @@ class App extends Component {
           <Header></Header>
           <Switch>
             <Route exact path="/"  component={Home} />
-
+            <Route path="/transaction/view/:id"  component={ViewTransation} />
             <Route path="/transaction/:action/:id?"  component={Transation} />
-
             <Route path="/overview" component={Overview} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />

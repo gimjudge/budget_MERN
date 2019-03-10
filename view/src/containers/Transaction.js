@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import '../css/transaction.css';
 import TransactionForm from '../components/TransactionForm';
-import ViewTransaction from '../containers/ViewTransaction';
+import PageTitle from '../components/PageTitle';
 
 
-class AddTransaction extends Component {
+class Transaction extends Component {
     constructor(props) {
         super(props);
         
@@ -31,19 +31,30 @@ class AddTransaction extends Component {
     }
     
     render () {
-        //console.log(this);
-        
-        
-
-        const transAction = this.state.action === "view" ? 
-            <ViewTransaction transactionID={this.props.match.params.id}/> : 
-            <TransactionForm changeAction={this.handleAction} action={this.state.action} transactionID={this.props.match.params.id} />
+        // Create Title
+        const capsAction = this.state.action.charAt(0).toUpperCase() + this.state.action.slice(1);
+        const title = capsAction + " Transaction";
+            
         return (
             <div className="main-content">
-                {transAction}
+                <PageTitle title={title}/>
+                <TransactionForm action={this.state.action} transactionID={this.props.match.params.id} />
             </div>
         );
+        /*return (
+            <BrowserRouter>
+                <div className="main-content">
+                    <PageTitle title={"hi"}/>
+                    <Switch>
+                        <Route exact path="/transaction"  component={TransactionForm} />
+                        <Route path="/transaction/add"  component={TransactionForm} />
+                        <Route path="/transaction/edit/:id"  component={TransactionForm} />
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        );
+        */
     }
 }
 
-export default AddTransaction;
+export default Transaction;

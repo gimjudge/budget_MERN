@@ -11,7 +11,7 @@ import Note from './Note';
 const TransactionForm = props => {
 
     return (
-        <fieldset className="trans-fields-container container">
+        <div className="trans-fields-container container">
             <Type 
                 checked={props.formVariables.type} 
                 onChange={props.onChange}
@@ -36,7 +36,7 @@ const TransactionForm = props => {
                 value={props.formVariables.note} 
                 onChange={props.onChange}
             />
-        </fieldset>
+        </div>
     );
 }
 

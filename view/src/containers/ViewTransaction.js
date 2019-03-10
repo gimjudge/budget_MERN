@@ -4,6 +4,7 @@ import axios from 'axios';
 
 // Components
 import DisplayTransaction from '../components/DisplayTransaction';
+import PageTitle from '../components/PageTitle';
 
 // CSS
 import '../css/viewTransaction.css';
@@ -20,7 +21,6 @@ class ViewTransation extends Component {
                 'category',
                 'note'
             ],
-            toViewTransaction: false,
             detailID: ''
         };
     }
@@ -30,7 +30,7 @@ class ViewTransation extends Component {
         this.getTransaction(this.requestTransactionId());
     }
     requestTransactionId() {
-        return this.props.transactionID;
+        return (this.props.transactionID) ? this.props.transactionID : this.props.match.params.id;
     }
     getTransaction (id) {
         axios.get(`http://localhost:3001/transaction/detail/${id}`)
@@ -48,16 +48,8 @@ class ViewTransation extends Component {
 
     render () {
         return (
-                <div className=" container">
-                    <div className="row">
-                        <div className="row-content">
-                            <div className="column-12">
-                                <div className="data">
-                                    <h1 className="main-title">Transaction</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="main-content">
+                    <PageTitle title={"View Transaction"}/>
                     <DisplayTransaction displayFields={this.state.displayFields} fields={this.state.fields} />
                 </div>
         );

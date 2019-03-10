@@ -29,6 +29,7 @@ class AddTransaction extends Component {
                 merchant: false,
                 type: false
             },
+            apiResponse: {},
             formResponse: '',
             formValid: false,
             toViewTransaction: false,
@@ -42,12 +43,7 @@ class AddTransaction extends Component {
     }
 
     componentDidMount() {
-        //console.log('componentDidMount');
-        //console.log(this.state.transactionID);
-        //this.getTransactionById (this.props.transactionID);
         this.preparingAction();
-        //Set the action state
-        //this.setState({action: this.props.action()});
     }
 
     componentDidUpdate(prevProps) {
@@ -56,6 +52,7 @@ class AddTransaction extends Component {
                 action:this.props.action,
                 transactionID: null
             });
+            this.preparingAction();
         }
         if (this.props.transactionID !== prevProps.transactionID) {
             this.setState({
@@ -87,22 +84,12 @@ class AddTransaction extends Component {
             date: this.toDayte(),
             type: "expense"
         }, 'yes');
-        /*
-        this.setState({
-            formVariables:{
-                date: this.toDayte(),
-                type: "expense"
-            },
-
-        },() => {this.setFormValid()});
-        */
     }
 
     /*
         Gets the transaction data from the Mongoose Express Model* API
     */
     getTransactionById (id) {
-        //console.log("blast");
         axios.get(`http://localhost:3001/transaction/detail/${id}`)
             .then(response => {
                 if (response.status === 200) {
@@ -147,8 +134,6 @@ class AddTransaction extends Component {
         const dateNow = [yyyy, mm, dd].join('-');
         return dateNow;
     }
-    
-
 
     /*
         Form Validation
@@ -252,7 +237,6 @@ class AddTransaction extends Component {
             }
             //Checks to see if the new state form variables are valid
             newState.fieldValid = this.fieldValid(newState.formVariables);
-            console.log()
             return ({
                 formVariables: {
                     ...newState.formVariables
@@ -293,13 +277,29 @@ class AddTransaction extends Component {
     */
     handleSubmit = e => {
         e.preventDefault();
-        if (this.props.action === "add") {
-            if (this.state.formValid) {
+        
+        if (this.state.formValid) {
                 let postJSON = this.state.formVariables;
+            if (this.props.action === "add") {
                 axios.post('http://localhost:3001/transaction/detail', postJSON)
                 .then(response => {
                     if (response.status === 201) {
                         this.setState({ transactionID: response.data._id });
+                        //this.setState({ apiResponse: response });
+
+                        /* Needs Redirect from react-router-dom */
+                        this.setState({ toViewTransaction: true });
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error.response);
+                });
+            } else if (this.props.action === "edit" && (typeof this.props.transactionID !== "undefined")) {
+                axios.put(`http://localhost:3001/transaction/detail/${this.props.transactionID}`, postJSON)
+                .then(response => {
+                    if (response.status === 200) {
+                        this.setState({ transactionID: this.props.transactionID });
+                        this.setState({ apiResponse: response });
 
                         /* Needs Redirect from react-router-dom */
                         this.setState({ toViewTransaction: true });
@@ -309,8 +309,6 @@ class AddTransaction extends Component {
                     console.log(error.response);
                 });
             }
-        } else if (this.props.action === "edit") {
-
         }
     }
     
@@ -326,8 +324,6 @@ class AddTransaction extends Component {
                 }} />
         }
         
-        const capsAction = this.props.action.charAt(0).toUpperCase() + this.props.action.slice(1);
-        const title = capsAction + " Transaction";
         const footers = {
             'add': AddFooter,
             'edit': EditFooter
@@ -336,19 +332,13 @@ class AddTransaction extends Component {
 
         return (
             <form className="transaction-form" onSubmit={this.handleSubmit} method="POST" autoComplete="on">
-                    <div className="row">
-                        <div className="row-content">
-                            <div className="column-12">
-                                <div className="data">
-                                    <h1 className="main-title">{title}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <TransactionForm 
                         formVariables={this.state.formVariables}
                         onChange={this.handleUserInput}
                         action={this.props.action}
+                        cancelButton={this.handleCancelButton}
+                        cameraButton={this.handleCameraButton}
+                        formValid={this.state.formValid}
                     />
                     <Footer 
                         cancelButton={this.handleCancelButton}

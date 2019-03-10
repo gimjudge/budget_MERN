@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+// Font Awesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 // Components
 //import DisplayRow from './viewTransaction/DisplayRow';
 
 const DisplayTransaction = props => {
-    console.log(props);
+    //console.log(props);
     let data = {};
     let transactionID ='';
     for (let field in props.fields) {
@@ -115,9 +118,9 @@ const DisplayTransaction = props => {
                 <div className="row-content">
                     <div className="column-4">
                         <div className="data center">
-                            <button>
-                                <NavLink to={`/transaction/edit/${transactionID}`} activeClassName="selected">Edit</NavLink>
-                            </button>
+                            <NavLink to={`/transaction/edit/${transactionID}`} activeClassName="selected">
+                                <button><FontAwesomeIcon icon="edit" /> Edit</button>
+                            </NavLink>
                         </div>
                     </div>
                 </div>

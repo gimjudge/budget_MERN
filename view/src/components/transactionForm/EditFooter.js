@@ -4,6 +4,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EditFooter = props => {
+    
     return (
         <div className="finalizing-row row">
             <div className="finalizing-content row-content">
@@ -14,6 +15,7 @@ const EditFooter = props => {
                         </button>
                     </div>
                 </div>
+                {/*
                 <div className="finalizing-column column-4">
                     <div className="finalizing-data data center">
                         <button className="trans-camera" type="button" onClick={ props.cameraButton } >
@@ -22,6 +24,7 @@ const EditFooter = props => {
                         <input type="file" accept="image/*;capture=camera" ></input>
                     </div>
                 </div>
+                */}
                 <div className="finalizing-column column-4">
                     <div className="finalizing-data data center">
                         <button className="trans-submit" type="submit" disabled={!props.formValid}>

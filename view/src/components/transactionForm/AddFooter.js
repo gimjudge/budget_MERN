@@ -14,6 +14,7 @@ const AddFooter = props => {
                         </button>
                     </div>
                 </div>
+                {/*
                 <div className="finalizing-column column-4">
                     <div className="finalizing-data data center">
                         <button className="trans-camera" type="button" onClick={ props.cameraButton } >
@@ -22,6 +23,7 @@ const AddFooter = props => {
                         <input type="file" accept="image/*;capture=camera" ></input>
                     </div>
                 </div>
+                */}
                 <div className="finalizing-column column-4">
                     <div className="finalizing-data data center">
                         <button className="trans-submit" type="submit" disabled={!props.formValid}>

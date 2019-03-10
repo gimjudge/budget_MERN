@@ -33,7 +33,7 @@ class ViewTransation extends Component {
         return (this.props.transactionID) ? this.props.transactionID : this.props.match.params.id;
     }
     getTransaction (id) {
-        axios.get(`http://localhost:3001/transaction/detail/${id}`)
+        axios.get(`http://localhost:3001/transaction/single/${id}`)
             .then(response => {
                 if (response.status === 200) {
                     this.setState({

@@ -281,7 +281,7 @@ class AddTransaction extends Component {
         if (this.state.formValid) {
                 let postJSON = this.state.formVariables;
             if (this.props.action === "add") {
-                axios.post('http://localhost:3001/transaction/detail', postJSON)
+                axios.post('http://localhost:3001/transaction/single', postJSON)
                 .then(response => {
                     if (response.status === 201) {
                         this.setState({ transactionID: response.data._id });
@@ -295,7 +295,7 @@ class AddTransaction extends Component {
                     console.log(error.response);
                 });
             } else if (this.props.action === "edit" && (typeof this.props.transactionID !== "undefined")) {
-                axios.put(`http://localhost:3001/transaction/detail/${this.props.transactionID}`, postJSON)
+                axios.put(`http://localhost:3001/transaction/single/${this.props.transactionID}`, postJSON)
                 .then(response => {
                     if (response.status === 200) {
                         this.setState({ transactionID: this.props.transactionID });

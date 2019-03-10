@@ -90,7 +90,7 @@ class AddTransaction extends Component {
         Gets the transaction data from the Mongoose Express Model* API
     */
     getTransactionById (id) {
-        axios.get(`http://localhost:3001/transaction/detail/${id}`)
+        axios.get(`http://localhost:3001/transaction/single/${id}`)
             .then(response => {
                 if (response.status === 200) {
                     let data = {

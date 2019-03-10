@@ -1,16 +1,13 @@
 const express = require('express');
-const router = express.Router();
+const groupRouter = express.Router({mergeParams: true});
 
 const TransactionModel = require('../models/transaction.js').TransactionModel;
+
 /*
     Get Month Transactions (Functions)
     expects int 0 - 11.
 */
-/*
-    Get Month Transactions (Functions)
-    expects int 0 - 11.
-*/
-router.get("/transaction/month/:monthNumber", (req, res, next) => {
+groupRouter.get("/month/:monthNumber", (req, res, next) => {
     // Check Authorization (middleware)
     
     const date = new Date();
@@ -41,4 +38,4 @@ router.get("/transaction/month/:monthNumber", (req, res, next) => {
     });
 });
 
-module.exports = router;
+module.exports = groupRouter;

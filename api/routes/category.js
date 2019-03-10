@@ -1,28 +1,31 @@
 const express = require('express');
-const singleRouter = express.Router({mergeParams: true});
+const categoryRouter = express.Router({mergeParams: true});
 
-const TransactionModel = require('../models/transaction.js').TransactionModel;
+const CategoryModel = require('../models/category.js').CategoryModel;
 
 /*
-Post Details (Functions)
+Post Cetegory (Functions)
 expects JSON body
     {
-        amount: { type: Number, required: true },
-        type: { type: Boolean, required: true  },
-        category: { type: String, required: true },
-        note: { type: String, default: null },
-        date: { type: Date, default: Date.now },
-        date_created: { type: Date, default: Date.now },
-        date_deleted: { type: Date, default: null }
+    category: { type: string, required: true },
+    subCategory: [
+        {
+            subCategory: { type: string, required: true },
+            date_created: { type: Date, default: Date.now },
+            date_deleted: { type: Date, default: null }
+        }
+    ],
+    date_created: { type: Date, default: Date.now },
+    date_deleted: { type: Date, default: null }
     }
 */
-singleRouter.post("/", (req, res, next) => {
+categoryRouter.post("/", (req, res, next) => {
 // Check Authorization (middleware)
 
-// Insert Transaction Details
+// Insert category Details
     //Currently no extra validation
-    let transactionInstance = new TransactionModel(req.body);
-    transactionInstance.save(function (err, transaction) {
+    let categoryInstance = new CategoryModel(req.body);
+    categoryInstance.save(function (err, category) {
         // Error, add more error handling? 
         if(err) {
             err.status = 400;
@@ -30,7 +33,7 @@ singleRouter.post("/", (req, res, next) => {
         }
         // Send JSON Error Response
         res.status(201);
-        res.json(transaction);
+        res.json(category);
     });
 });
 
@@ -38,23 +41,23 @@ singleRouter.post("/", (req, res, next) => {
     Get Details (Functions)
     expects String ID
 */
-singleRouter.get("/:tID", (req, res, next) => {
+categoryRouter.get("/:tID", (req, res, next) => {
 // Check Authorization (middleware)
 
-// Select Transaction Details
-    TransactionModel.findById(req.params.tID, function (err, transaction) {
+// Select category Details
+    CategoryModel.findById(req.params.tID, function (err, category) {
     // Send JSON Error response
         if(err) {
             err.status = 404;
             return next(err);
         }
-        if(!transaction) {
+        if(!category) {
             err = new Error("Not Found");
             err.status = 404;
             return next(err);
         }
     // Send JSON response
-        res.json(transaction);
+        res.json(category);
     });
 });
 
@@ -62,11 +65,11 @@ singleRouter.get("/:tID", (req, res, next) => {
     Put Details (Functions)
     expects String ID & JSON body
 */
-singleRouter.put("/:tID", (req, res, next) => {
+categoryRouter.put("/:tID", (req, res, next) => {
 // Check Authorization (middleware)
 
-// Update Transaction Details
-    TransactionModel.findOne({ _id: req.params.tID }).updateOne(req.body, function(err, result) {
+// Update category Details
+    CategoryModel.findOne({ _id: req.params.tID }).updateOne(req.body, function(err, result) {
         //may need to make changes.
         if(err) {
             err.status = 400;
@@ -81,11 +84,11 @@ singleRouter.put("/:tID", (req, res, next) => {
     Delete (Functions)
     expects String ID
 */
-singleRouter.delete("/:tID", (req, res, next) => {
+categoryRouter.delete("/:tID", (req, res, next) => {
 // Check Authorization
 
-// Update Transaction Details
-    TransactionModel.deleteOne({ _id: req.params.tID }, function(err, result) {
+// Update category Details
+    CategoryModel.deleteOne({ _id: req.params.tID }, function(err, result) {
         // Send JSON Error response
         if(err) {
             err.status = 400;
@@ -101,4 +104,4 @@ singleRouter.delete("/:tID", (req, res, next) => {
     });
 });
 
-module.exports = singleRouter;
+module.exports = categoryRouter;

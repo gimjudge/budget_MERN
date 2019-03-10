@@ -1,9 +1,14 @@
 const express = require('express');
+
+// routers
 const router = express.Router();
+//const groupRouter = express.Router({mergeParams: true});
+//const singleRouter = express.Router({mergeParams: true});
 
 // require routes
-const single =  require('./single');
-const group =  require('./group');
+const singleRouter =  require('./single');
+const groupRouter =  require('./group');
+const categoryRouter =  require('./category');
 
 // Root '/' ?
 router.get('/', function (req, res, next) {
@@ -25,8 +30,9 @@ router.post('/transaction', function (req, res, next) {
 
 // Authorize
 
-app.use("/transaction/group", group);
-app.use("/transaction/single", single);
+router.use("/transaction/single", singleRouter);
+router.use("/transaction/group", groupRouter);
+router.use("/transaction/category", categoryRouter);
 
 // export router
 module.exports = router;

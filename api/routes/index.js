@@ -32,7 +32,7 @@ router.post('/transaction', function (req, res, next) {
 
 router.use("/transaction/single", singleRouter);
 router.use("/transaction/group", groupRouter);
-router.use("/transaction/category", categoryRouter);
+router.use("/category", categoryRouter);
 
 // export router
 module.exports = router;

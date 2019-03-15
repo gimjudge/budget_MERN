@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 
 /*const Category = props => {*/
 
-class Category extends Component {
+class Subcategory extends Component {
 
     buildOptions () {
         let arr = [];
 
         for (let option in this.props.options) {
             arr.push(
-            <option key={option} value={this.props.options[option].category}>
-            {this.props.options[option].category}
+            <option key={option} value={this.props.options[option].subcategory}>
+            {this.props.options[option].subcategory}
             </option>
             )
         }
@@ -25,21 +25,21 @@ class Category extends Component {
                 <div className="transaction-row-content row-content">
                     <div className="transaction-column column-4">
                         <div className="transaction-data data">
-                            <label htmlFor="category">Category</label>
+                            <label htmlFor="category">Subcategory</label>
                         </div>
                     </div>
                     <div className="transaction-column column-8">
                         <div className="transaction-data data">
                             <select 
                                 className="trans-input" 
-                                id="category" 
-                                name="category"
+                                id="subcategory" 
+                                name="subcategory"
                                 value={this.props.value}
                                 onChange={this.props.onChange}
                                 required
                             >
                                 <option value="">
-                                    Pick Category
+                                    Pick Subcategory
                                 </option>
                                 {this.buildOptions()}
                             </select>
@@ -51,4 +51,4 @@ class Category extends Component {
     }
 }
 
-export default Category;
+export default Subcategory;

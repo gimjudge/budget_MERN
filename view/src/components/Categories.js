@@ -2,10 +2,12 @@ import React from 'react';
 import Category from './categories/Category';
 
 const Categories = (props) => {
+    console.log(' Categories props');
+    console.log(props);
+    /*
     
-    //console.log(props);
     let categories = props.categories.map ((category) => {
-        console.log(category);
+        //console.log(category);
         return (
             <Category 
                 key={category.key} 
@@ -16,6 +18,22 @@ const Categories = (props) => {
             />
         );
     });
+    */
+   let categories = [];
+   for (let category in props.categories) {
+    //console.log(category);
+    //console.log(props.categories[category].id);
+        categories.push (
+            <Category 
+                key={(props.categories[category].id || category)}
+                id={(props.categories[category].id || category)} 
+                category={props.categories[category].category} 
+                current={props.categories[category].current} 
+                planned={props.categories[category].planned}
+                subcategories={props.categories[category].subcategories}
+            />
+        );
+    };
 
     return (
         <div className="table-container">

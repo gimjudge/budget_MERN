@@ -58,6 +58,20 @@ const DisplayTransaction = props => {
                 <div className="row-content">
                     <div className="column-3">
                         <div className="data title">
+                            Subcategory
+                        </div>
+                    </div>
+                    <div className="column-3">
+                        <div className="data right">
+                            {data.subcategory}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="row-content">
+                    <div className="column-3">
+                        <div className="data title">
                             Merchant
                         </div>
                     </div>

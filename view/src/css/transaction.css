@@ -134,6 +134,9 @@ input.trans-type-radio[type="radio"] + label:hover {
 .finalizing-content {
 	justify-content: space-between;
 }
+.finalizing-content-single {
+	justify-content: flex-end;
+}
 
 /* 
 	Media Queries

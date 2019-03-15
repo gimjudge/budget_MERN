@@ -2,23 +2,40 @@ import React from 'react';
 import SubCategory from './SubCategory';
 
 const Category = (props) => {
+    /*
     let subCategories = props.subCategories.map((subCategories) => {
         return (
             <SubCategory 
-                key={subCategories.key}
-                name={subCategories.name}
+                key={subCategories.if}
+                name={subCategories.subcategory}
                 current={subCategories.current}
                 planned={subCategories.planned}
             />
         );
     });
+    */
+
+    let subcategories = [];
+
+    for (let subcategory in props.subcategories) {
+    //console.log(category);
+        subcategories.push (
+            <SubCategory 
+                key={(props.subcategories[subcategory].id || subcategory)} 
+                id={(props.subcategories[subcategory].id || subcategory)} 
+                subcategory={props.subcategories[subcategory].subcategory} 
+                current={props.subcategories[subcategory].current} 
+                planned={props.subcategories[subcategory].planned}
+            />
+        );
+    };
     return (
-        <div className="container category-container">
+        <div key={props.id} className="container category-container">
             <div className="row table-header">
                 <div className="row-content">
                     <div className="column-4">
                         <div className="data">
-                            {props.name}
+                            {props.category}
                         </div>
                     </div>
                     <div className="column-4">
@@ -38,7 +55,7 @@ const Category = (props) => {
                     <div className="column-12">
                         <div className="data">
                             <br />
-                            {subCategories}
+                            {subcategories}
                             <br />
                         </div>
                     </div>

@@ -210,13 +210,6 @@ categoryRouter.delete("/:catID/subcategories/:subID", (req, res, next) => {
 
 // Update category Details
     // Update category Details
-    //let date = Date.now();
-    /*
-    req.subcategory.update({date_deleted: Date.now()}, function(err, result) {
-        if(err) return next(err);
-        res.json(result);
-    });
-    */
     req.subcategory.update({date_deleted: Date.now()}, function(err, result) {
         
         //may need to make changes.

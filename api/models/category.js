@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SubCategorySchema = new Schema({
-    subcategory: { type: String, required: true },
+    subcategory: { type: String, required: true, unique: true},
+    planned: { type: Number, default: 0 },
     date_created: { type: Date, default: Date.now },
     date_deleted: { type: Date, default: null }
 });
@@ -16,7 +17,7 @@ SubCategorySchema.method("update", function(updates, callback) {
 });
 
 const CategorySchema = new Schema({
-    category: { type: String, required: true },
+    category: { type: String, required: true, unique: true },
     subcategories: [SubCategorySchema],
     date_created: { type: Date, default: Date.now },
     date_deleted: { type: Date, default: null }

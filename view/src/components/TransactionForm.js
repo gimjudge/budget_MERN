@@ -336,9 +336,6 @@ class AddTransaction extends Component {
                         formVariables={this.state.formVariables}
                         onChange={this.handleUserInput}
                         action={this.props.action}
-                        cancelButton={this.handleCancelButton}
-                        cameraButton={this.handleCameraButton}
-                        formValid={this.state.formValid}
                     />
                     <Footer 
                         cancelButton={this.handleCancelButton}

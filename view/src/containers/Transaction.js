@@ -19,7 +19,7 @@ class Transaction extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.match.params.action !== prevProps.match.params.action) {
             this.handleAction(this.props.match.params.action);
-          }
+        }
     }
 
     handleAction(action = null) {

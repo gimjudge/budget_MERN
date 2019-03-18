@@ -26,9 +26,9 @@ import NotFound from './NotFound';
 
 // Fav Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faCheck, faCamera, faTimes, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCheck, faCamera, faTimes, faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars, faCheck, faCamera, faTimes, faTrash, faEdit);
+library.add(faBars, faCheck, faCamera, faTimes, faTrash, faEdit, faPlus);
 
 /*
             <Route exact path="/" component={Home} />

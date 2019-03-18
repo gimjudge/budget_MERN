@@ -1,71 +1,10 @@
 import React, { Component } from 'react';
-import Categories from '../components/Categories';
+import OverviewHeader from '../components/OverviewHeader';
+import OverviewCategories from '../components/OverviewCategories';
 
 import axios from 'axios';
 
 import '../css/overview.css';
-
-const jsonData = { 
-    "budget": {
-        "categories":[
-            {
-                "key": 1,
-                "name": "Food",
-                "subCategories": [
-                    {
-                        "key": 1,
-                        "name": "Groceries",
-                        "current": 300.00,
-                        "planned": 400.00,
-                    },
-                    {
-                        "key": 2,
-                        "name": "Coffee",
-                        "current": 30.00,
-                        "planned": 0.00,
-                    }
-                ]
-            },
-            {
-                "key": 2,
-                "name": "Personal",
-                "subCategories": [
-                    {
-                        "key": 1,
-                        "name": "Clothing",
-                        "current": 30.00,
-                        "planned": 40.00,
-                    },
-                    {
-                        "key": 2,
-                        "name": "Phone",
-                        "current": 200.00,
-                        "planned": 200.00,
-                    },
-                    {
-                        "key": 3,
-                        "name": "Fun Money",
-                        "current": 20.00,
-                        "planned": 40.00,
-                    },
-                    {
-                        "key": 4,
-                        "name": "Hair/Cosmetics",
-                        "current": 30.00,
-                        "planned": 0.00,
-                    },
-                    {
-                        "key": 5,
-                        "name": "Subscriptions",
-                        "current": 30.00,
-                        "planned": 50.00,
-                    }
-                ]
-            }
-        ]
-    } 
-};
-
 
 
 class Overview extends Component {
@@ -81,7 +20,9 @@ class Overview extends Component {
                 gotTransactions: false
             },
         };
-        
+
+        this.postSubcategory = this.postSubcategory.bind(this);
+        this.postCategory = this.postCategory.bind(this);
     }
 
     componentDidMount() {
@@ -130,31 +71,12 @@ class Overview extends Component {
                                 };
                             }
                         }
-                        /*
-                        console.log('Categories prev State');
-                        console.log(prevState);
-
-                        console.log('Categories Prepped Data');
-                        console.log(data);
-                        */
                         
                         return ({
                             ...prevState,
                             data
                         });
                     }, () => {this.getTransactions(this.state.month)});
-                    
-                    //this.setState({roughCategories: response.data});
-                    //this.setState({data});
-                    /*
-                    this.setState(prevState => ({
-                        ...prevState
-                        data: {
-                            ...prevState.data,
-                            ...data
-                        }
-                    }));
-                    */
                 }
             })
             .catch(function (error) {
@@ -178,8 +100,6 @@ class Overview extends Component {
                         if (typeof data.categories === 'undefined') {
                             data.categories = {};
                         }
-                       //console.log('Transaction data 1');
-                        //console.log(data);
 
                         for (let index in transactions) {
                             let category = transactions[index]['category'];
@@ -194,38 +114,16 @@ class Overview extends Component {
                             if (typeof data.categories[category].subcategories[subcategory] === 'undefined') {
                                 data.categories[category].subcategories[subcategory] = {};
                             }
-                            //console.log('Transaction data 2');
-                            //console.log(data);
                             //amounts
                             let newAmount = (typeof transactions[index]['amount'] === 'undefined') ? 0 : transactions[index]['amount'];
                             let categoryAmount = (data.categories[category]['amount'] === 'undefined' || 0);
                             let subcategoryAmount = (data.categories[category].subcategories[subcategory]['amount'] || 0);
-                            /*
-                            data.categories[category] = {
-                                current: (categoryAmount+newAmount),
-                                subcategories: {
-                                    [subcategory]: {
-                                        current: (subcategoryAmount+newAmount)
-                                    }
-                                }
-                            };
-                            */
+
                             data.categories[category]['category'] = category;
                             data.categories[category]['current'] = (categoryAmount+newAmount);
                             data.categories[category]['subcategories'][subcategory]['subcategory'] = subcategory;
                             data.categories[category]['subcategories'][subcategory]['current'] = (subcategoryAmount+newAmount);
-
-                            //data.subcategories[category] = subcategories2;
-                            //console.log('Transaction data 3');
-                            //console.log(data);
                         }
-                        /*
-                        console.log('Transaction prev State');
-                        console.log(prevState);
-
-                        console.log('Transaction Prepped Data');
-                        console.log(data);
-                        */
                         return ({
                             ...prevState,
                             data
@@ -238,17 +136,84 @@ class Overview extends Component {
         });
     }
 
+    postCategory (postJSON) {
+        axios.post(`http://localhost:3001/category`, postJSON)
+            .then(response => {
+                if (response.status === 201) {
+                    //console.log(response);
+                    this.getCategories();
+                }
+            })
+            .catch(function (error) {
+                console.log(error.response);
+            });
+    }
+
+    postSubcategory (categoryID, postJSON) {
+        axios.post(`http://localhost:3001/category/${categoryID}/subcategories`, postJSON)
+                .then(response => {
+                    if (response.status === 201) {
+                        //console.log(response);
+                        this.getCategories();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error.response);
+            });
+    }
+
+    putCategory (categoryID, postJSON) {
+        axios.put(`http://localhost:3001/category/${categoryID}`, postJSON)
+            .then(response => {
+                if (response.status === 201) {
+                    //console.log(response);
+                    this.getCategories();
+                }
+            })
+            .catch(function (error) {
+                console.log(error.response);
+            });
+    }
+
+    putSubcategory (categoryID, subcategoryID, postJSON) {
+        axios.put(`http://localhost:3001/category/${categoryID}/subcategories/${subcategoryID}`, postJSON)
+                .then(response => {
+                    if (response.status === 201) {
+                        //console.log(response);
+                        this.getCategories();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error.response);
+            });
+    }
+
+    displayOnClick = e => {
+        const addForm = document.getElementById(`${e.currentTarget.id}-form`);
+        const addInput = document.getElementById(`${e.currentTarget.id}-input`);
+        /*
+        e.currentTarget.style.display = "none";
+        addForm.style.display = "block";
+        */
+        e.currentTarget.classList.add("display-none");
+        addForm.classList.remove("display-none");
+
+        addInput.focus();
+    }
+
     render () {
         if (!this.state.data.gotCategories || !this.state.data.gotTransactions) {
             return <div />
         }
-        //console.log('this state');
-        //console.log(this.state);
-        //<Categories categories={jsonData.budget.categories}/>
         return (
             <div className="main-content">
-                <h1 className="main-title">Overview</h1>
-                <Categories categories={this.state.data.categories}/>
+                <OverviewHeader categories={this.state.data.categories} displayOnClick={this.displayOnClick} postCategory={this.postCategory} />
+                <OverviewCategories 
+                    categories={this.state.data.categories} 
+                    displayOnClick={this.displayOnClick} 
+                    postSubcategory={this.postSubcategory} 
+                    putSubcategory={this.putSubcategory} 
+                />
             </div>
         );
     }

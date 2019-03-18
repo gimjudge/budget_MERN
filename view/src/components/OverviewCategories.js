@@ -2,23 +2,9 @@ import React from 'react';
 import Category from './categories/Category';
 
 const Categories = (props) => {
-    console.log(' Categories props');
-    console.log(props);
-    /*
-    
-    let categories = props.categories.map ((category) => {
-        //console.log(category);
-        return (
-            <Category 
-                key={category.key} 
-                name={category.name} 
-                current={category.current} 
-                planned={category.planned}
-                subCategories={category.subCategories}
-            />
-        );
-    });
-    */
+    //console.log(' Categories props');
+    //console.log(props);
+
    let categories = [];
    for (let category in props.categories) {
     //console.log(category);
@@ -31,6 +17,9 @@ const Categories = (props) => {
                 current={props.categories[category].current} 
                 planned={props.categories[category].planned}
                 subcategories={props.categories[category].subcategories}
+                displayOnClick={props.displayOnClick}
+                postSubcategory={props.postSubcategory}
+                putSubcategory={props.putSubcategory} 
             />
         );
     };

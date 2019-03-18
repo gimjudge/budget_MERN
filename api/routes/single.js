@@ -8,8 +8,12 @@ Post Details (Functions)
 expects JSON body
     {
         amount: { type: Number, required: true },
-        type: { type: Boolean, required: true  },
+        type: { type: String, required: true  },
         category: { type: String, required: true },
+        category_id: { type: mongoose.Schema.ObjectId, required: true },
+        subcategory: { type: String },
+        subcategory_id: { type: mongoose.Schema.ObjectId, required: true },
+        merchant: { type: String, required: true },
         note: { type: String, default: null },
         date: { type: Date, default: Date.now },
         date_created: { type: Date, default: Date.now },

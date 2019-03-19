@@ -18,6 +18,7 @@ const Categories = (props) => {
                 planned={props.categories[category].planned}
                 subcategories={props.categories[category].subcategories}
                 displayOnClick={props.displayOnClick}
+                putCategory={props.putCategory} 
                 postSubcategory={props.postSubcategory}
                 putSubcategory={props.putSubcategory} 
             />

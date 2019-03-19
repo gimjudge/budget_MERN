@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 // Font Awesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,6 +33,7 @@ class OverviewHeader extends Component {
                     <div className="row-content">
                         <div className="column-3">
                             <div className="data">
+                                {/*Month Select*/}
                             </div>
                         </div>
                         <div className="column-6">

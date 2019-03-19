@@ -208,10 +208,15 @@ class Overview extends Component {
         }
         return (
             <div className="main-content">
-                <OverviewHeader categories={this.state.data.categories} displayOnClick={this.displayOnClick} postCategory={this.postCategory} />
+                <OverviewHeader 
+                    categories={this.state.data.categories} 
+                    displayOnClick={this.displayOnClick} 
+                    postCategory={this.postCategory} 
+                />
                 <OverviewCategories 
                     categories={this.state.data.categories} 
                     displayOnClick={this.displayOnClick} 
+                    putCategory={this.putCategory} 
                     postSubcategory={this.postSubcategory} 
                     putSubcategory={this.putSubcategory} 
                 />

@@ -9,7 +9,12 @@ const Category = (props) => {
     //console.log(props);
     return (
         <div key={props.id} className="container category-container">
-            <CategoryHeader id={props.id} category={props.category} />
+            <CategoryHeader 
+                categoryID={props.id}
+                category={props.category} 
+                displayOnClick={props.displayOnClick} 
+                putCategory={props.putCategory} 
+            />
             <Subcategories 
                 categoryID={props.id} 
                 subcategories={props.subcategories}

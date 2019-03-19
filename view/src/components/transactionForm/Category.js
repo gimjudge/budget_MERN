@@ -9,7 +9,7 @@ class Category extends Component {
 
         for (let option in this.props.options) {
             arr.push(
-            <option key={option} value={this.props.options[option].category}>
+            <option key={option} value={this.props.options[option].id}>
             {this.props.options[option].category}
             </option>
             )
@@ -32,8 +32,8 @@ class Category extends Component {
                         <div className="transaction-data data">
                             <select 
                                 className="trans-input" 
-                                id="category" 
-                                name="category"
+                                id="categoryID" 
+                                name="categoryID"
                                 value={this.props.value}
                                 onChange={this.props.onChange}
                                 required

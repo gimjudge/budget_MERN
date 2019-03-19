@@ -49,7 +49,8 @@ class Overview extends Component {
     
                             let subcategories = response.data[index]['subcategories'];
     
-                            data.categories[category] = {
+                            //data.categories[category] = {
+                                data.categories[categoryId] = {
                                 //...prevState.data.categories[category],
                                 id: categoryId,
                                 category: category,
@@ -63,7 +64,8 @@ class Overview extends Component {
                                 let subcategory = (typeof subcategories[i]['subcategory'] === 'undefined') ? 'Misc' : subcategories[i]['subcategory'];
                                 let planned = (typeof subcategories[i]['planned'] === 'undefined') ? 0 : subcategories[i]['planned'];
                                 
-                                data.categories[category].subcategories[subcategory] = {
+                                //data.categories[category].subcategories[subcategory] = {
+                                data.categories[categoryId].subcategories[subcategoryId] = {    
                                     //...prevState.data.categories[category].subcategories[subcategory],
                                     id: subcategoryId,
                                     subcategory: subcategory,
@@ -102,27 +104,26 @@ class Overview extends Component {
                         }
 
                         for (let index in transactions) {
-                            let category = transactions[index]['category'];
-                            let subcategory = (typeof transactions[index]['subcategory'] === 'undefined') ? 'Misc' : transactions[index]['subcategory'];
+                            //let category = transactions[index]['category'];
+                            let categoryID = transactions[index]['categoryID'];
+                            let subcategoryID = transactions[index]['subcategoryID'];
                             /*
                             */
-                            if (typeof data.categories[category] === 'undefined') {
-                                data.categories[category] = {
+                            if (typeof data.categories[categoryID] === 'undefined') {
+                                data.categories[categoryID] = {
                                     subcategories:{}
                                 };
                             }
-                            if (typeof data.categories[category].subcategories[subcategory] === 'undefined') {
-                                data.categories[category].subcategories[subcategory] = {};
+                            if (typeof data.categories[categoryID].subcategories[subcategoryID] === 'undefined') {
+                                data.categories[categoryID].subcategories[subcategoryID] = {};
                             }
                             //amounts
                             let newAmount = (typeof transactions[index]['amount'] === 'undefined') ? 0 : transactions[index]['amount'];
-                            let categoryAmount = (data.categories[category]['amount'] === 'undefined' || 0);
-                            let subcategoryAmount = (data.categories[category].subcategories[subcategory]['amount'] || 0);
+                            let categoryAmount = (data.categories[categoryID]['amount'] === 'undefined' || 0);
+                            let subcategoryAmount = (data.categories[categoryID].subcategories[subcategoryID]['amount'] || 0);
 
-                            data.categories[category]['category'] = category;
-                            data.categories[category]['current'] = (categoryAmount+newAmount);
-                            data.categories[category]['subcategories'][subcategory]['subcategory'] = subcategory;
-                            data.categories[category]['subcategories'][subcategory]['current'] = (subcategoryAmount+newAmount);
+                            data.categories[categoryID]['current'] = (categoryAmount+newAmount);
+                            data.categories[categoryID]['subcategories'][subcategoryID]['current'] = (subcategoryAmount+newAmount);
                         }
                         return ({
                             ...prevState,

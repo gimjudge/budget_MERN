@@ -9,7 +9,7 @@ class Subcategory extends Component {
 
         for (let option in this.props.options) {
             arr.push(
-            <option key={option} value={this.props.options[option].subcategory}>
+            <option key={option} value={this.props.options[option].id}>
             {this.props.options[option].subcategory}
             </option>
             )
@@ -32,8 +32,8 @@ class Subcategory extends Component {
                         <div className="transaction-data data">
                             <select 
                                 className="trans-input" 
-                                id="subcategory" 
-                                name="subcategory"
+                                id="subcategoryID" 
+                                name="subcategoryID"
                                 value={this.props.value}
                                 onChange={this.props.onChange}
                                 required

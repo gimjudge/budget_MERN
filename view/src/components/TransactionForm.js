@@ -19,12 +19,14 @@ class AddTransaction extends Component {
                 amount: '',
                 date: '',
                 merchant: '',
-                category: '',
+                categoryID: '',
+                subcategoryID: '',
                 note: ''
             },
             fieldValid: {
                 amount: false,
-                category: false,
+                categoryID: false,
+                subcategoryID: false,
                 date: false,
                 merchant: false,
                 type: false
@@ -279,7 +281,9 @@ class AddTransaction extends Component {
         e.preventDefault();
         
         if (this.state.formValid) {
-                let postJSON = this.state.formVariables;
+            let postJSON = this.state.formVariables;
+            console.log('post transaction');
+            console.log(postJSON);
             if (this.props.action === "add") {
                 axios.post('http://localhost:3001/transaction/single', postJSON)
                 .then(response => {

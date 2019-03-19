@@ -27,18 +27,47 @@ class ViewTransation extends Component {
 
     componentDidMount() {
         //console.log(this);
-        this.getTransaction(this.requestTransactionId());
+        this.getTransactionById(this.requestTransactionId());
     }
     requestTransactionId() {
         return (this.props.transactionID) ? this.props.transactionID : this.props.match.params.id;
     }
-    getTransaction (id) {
+    getTransactionById (id) {
         axios.get(`http://localhost:3001/transaction/single/${id}`)
             .then(response => {
                 if (response.status === 200) {
+
                     this.setState({
                         fields: response.data
-                    });
+                    }, () => {this.getCategoryByID (response.data.categoryID, response.data.subcategoryID)});
+                }
+            })
+            .catch(function (error) {
+                console.log(error.response);
+        });
+    }
+    getCategoryByID (catID = this.state.fields.categoryID, subID = this.state.fields.subcategoryID) {
+        axios.get(`http://localhost:3001/category/${catID}`)
+            .then(response => {
+                if (response.status === 200) {
+                    
+                    const category = response.data.category;
+                    const subcategories = response.data.subcategories;
+
+                    let subcategory = '';
+                    for (let index in subcategories) {
+                        if ( subcategories[index]['_id'] === subID) {
+                            subcategory = subcategories[index].subcategory;
+                        }
+                    }
+                    this.setState(prevState =>({
+                        fields: {
+                            ...prevState.fields,
+                            category: category,
+                            subcategory: subcategory
+
+                        }
+                    }));
                 }
             })
             .catch(function (error) {

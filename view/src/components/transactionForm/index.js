@@ -64,7 +64,7 @@ class TransactionForm extends Component {
                             category: category,
                             subcategory: subcategories
                         };
-                        data.subcategories[category] = subcategories2;
+                        data.subcategories[categoryId] = subcategories2;
                     }
                     this.setState(data);
                 }
@@ -83,8 +83,8 @@ class TransactionForm extends Component {
         this.state.categories[this.props.formVariables.category].subcategory : 
         "";
         */
-        let subcategories = (typeof this.state.subcategories[this.props.formVariables.category] !== "undefined") ? 
-        this.state.subcategories[this.props.formVariables.category] : 
+        let subcategories = (typeof this.state.subcategories[this.props.formVariables.categoryID] !== "undefined") ? 
+        this.state.subcategories[this.props.formVariables.categoryID] : 
         "";
         console.log(subcategories);
         //console.log(this.state.subcategories);
@@ -107,12 +107,12 @@ class TransactionForm extends Component {
                     onChange={this.props.onChange}
                 />
                 <Category 
-                    value={this.props.formVariables.category} 
+                    value={this.props.formVariables.categoryID} 
                     options={this.state.categories}
                     onChange={this.props.onChange}
                 />
                 <Subcategory 
-                    value={this.props.formVariables.subcategory}
+                    value={this.props.formVariables.subcategoryID}
                     options={subcategories}
                     onChange={this.props.onChange}
                 />

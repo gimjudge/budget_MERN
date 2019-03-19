@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import DisplayRow from './viewTransaction/DisplayRow';
 
 const DisplayTransaction = props => {
-    //console.log(props);
+    console.log(props);
     let data = {};
     let transactionID ='';
     for (let field in props.fields) {
